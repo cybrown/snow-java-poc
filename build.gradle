@@ -1,0 +1,17 @@
+defaultTasks 'coco', 'build'
+
+apply plugin: 'java'
+
+task coco(type: Exec) {
+    commandLine 'coco', '-package', 'gen', '-o', 'src/main/java/gen', 'QueryForm.ATG'
+}
+
+sourceCompatibility = 1.8
+version = '1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'SnowLang',
+                   'Implementation-Version': version,
+                   'Main-Class': 'snow.MakeQueryForm'
+    }
+}

@@ -1,0 +1,44 @@
+import java.util.ArrayList;
+import snow.HtmlGenerator;
+
+COMPILER QueryForm
+	public HtmlGenerator html;
+
+CHARACTERS
+	noQuote = ANY - '"'.
+	tab = '\t'.
+	cr = '\r'.
+	lf = '\n'.
+
+TOKENS
+	string = '"' {noQuote} '"'.
+
+COMMENTS
+	FROM "//" TO cr lf
+
+IGNORE tab+cr+lf
+
+PRODUCTIONS
+	QueryForm =                    (. html.printHeader(); .)
+		{ Query }                    (. html.printFooter(); .) .
+	//-------------------------------------------------------------------------------------------
+	Query                          (. String caption; ArrayList values; .)
+	=	"RADIO" Caption<out caption> Values<out values>
+																 (. html.printRadio(caption, values); .)
+	|	"CHECKBOX" Caption<out caption> Values<out values>
+																 (. html.printCheckbox(caption, values); .)
+	|	"TEXTBOX" Caption<out caption>
+																 (. html.printTextbox(caption); .) .
+	//------------------------------------------------------------------------------------------
+	Caption<out String s> =	StringVal<out s>.
+	//------------------------------------------------------------------------------------------
+	Values<out ArrayList values>   (. String s; .)
+	=	'(' StringVal<out s>         (. values = new ArrayList(); values.add(s); .)
+		{ ',' StringVal<out s>       (. values.add(s); .)
+		}
+		')'.
+	//------------------------------------------------------------------------------------------
+	StringVal<out String s>
+	=	string                       (. s = t.val.substring(1, t.val.length()-1); .) .
+
+END QueryForm.

@@ -1,0 +1,7 @@
+RADIO "How did you like this course?"
+("very much", "much", "somewhat", "not so much", "not at all")
+
+CHECKBOX "What is the field of your study?"
+("Computer Science", "Mathematics", "Physics")
+
+TEXTBOX "What should be improved?"

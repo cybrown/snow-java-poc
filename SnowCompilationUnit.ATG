@@ -82,9 +82,9 @@ PRODUCTIONS
 		.
 
 	AnonymousFunction<out Function node>
-			(. BaseAstNode exprNode; Token funToken; Identifier argName = null; BaseAstNode argType = null; .)
-		= fun (. funToken = t; .) '(' [Identifier<out argName> [':' Expression<out argType>]] ')' '{' Expression<out exprNode> '}'
-			(. node = new Function(toSnowToken(funToken), toSnowToken(t), null, exprNode, argName, argType); .)
+			(. BaseAstNode exprNode; Token firstToken; Identifier argName = null; BaseAstNode argType = null; .)
+		= fun (. firstToken = t; .) '(' [Identifier<out argName> [':' Expression<out argType>]] ')' '{' Expression<out exprNode> '}'
+			(. node = new Function(toSnowToken(firstToken), toSnowToken(t), null, exprNode, argName, argType); .)
 		.
 
 	Identifier<out Identifier node>

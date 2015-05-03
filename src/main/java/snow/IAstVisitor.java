@@ -12,4 +12,5 @@ public interface IAstVisitor {
     void visit(Definition definition, boolean start);
     void visit(Call call, boolean start);
     void visit(If node, boolean start);
+    void visit(ExpressionList node, boolean start);
 }

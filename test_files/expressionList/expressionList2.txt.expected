@@ -1,0 +1,20 @@
+<ExpressionList>
+    <ExpressionList>
+        <ExpressionList>
+            <If>
+                <LiteralInteger>1</LiteralInteger>
+                <LiteralInteger>2</LiteralInteger>
+                <LiteralInteger>3</LiteralInteger>
+            </If>
+            <Definition>
+                <Identifier>a</Identifier>
+                <LiteralInteger>3</LiteralInteger>
+            </Definition>
+        </ExpressionList>
+        <Binary operator="+">
+            <LiteralInteger>1</LiteralInteger>
+            <LiteralInteger>2</LiteralInteger>
+        </Binary>
+    </ExpressionList>
+    <Identifier>a</Identifier>
+</ExpressionList>

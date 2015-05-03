@@ -42,8 +42,13 @@ PRODUCTIONS
 
 	SnowCompilationUnit
 			(. BaseAstNode node; .)
-		= Expression<out node>
+		= ExpressionList<out node>
 			(. this.ast = node; .)
+		.
+
+	ExpressionList<out BaseAstNode node>
+			(. BaseAstNode secondNode; .)
+		= Expression<out node> {';' Expression<out secondNode> (. node = new ExpressionList(null, null, node, secondNode); .)}
 		.
 
 	Expression<out BaseAstNode node>
@@ -55,7 +60,7 @@ PRODUCTIONS
 
 	If<out If node>
 			(. Token firstToken; BaseAstNode condition; BaseAstNode ifTrue; BaseAstNode ifFalse = null; .)
-		= if (. firstToken = t; .) '(' Expression<out condition> ')' Expression<out ifTrue> [IF(la.kind == _else) else Expression<out ifFalse>]
+		= if (. firstToken = t; .) '(' ExpressionList<out condition> ')' Expression<out ifTrue> [IF(la.kind == _else) else Expression<out ifFalse>]
 			(. node = new If(toSnowToken(firstToken), toSnowToken(t), condition, ifTrue, ifFalse); .)
 		.
 
@@ -85,12 +90,12 @@ PRODUCTIONS
 
 	CallExpression<out BaseAstNode node>
 			(. BaseAstNode callee; Token firstToken; node = null; BaseAstNode arg = null;.)
-		= SubExpression<out node> (. firstToken = t; .) ['(' [Expression<out arg>] ')' (. node = new Call(toSnowToken(firstToken), toSnowToken(t), node, arg); .)]
+		= SubExpression<out node> (. firstToken = t; .) ['(' [ExpressionList<out arg>] ')' (. node = new Call(toSnowToken(firstToken), toSnowToken(t), node, arg); .)]
 		.
 
 	SubExpression<out BaseAstNode node>
 			(. node = null; .)
-		= '(' Expression<out node> ')'
+		= '(' ExpressionList<out node> ')'
 		| Literal<out node>
 		| Identifier<out node>
 		| AnonymousFunction<out node>

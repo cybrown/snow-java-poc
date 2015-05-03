@@ -20,12 +20,15 @@ CHARACTERS
 	cr = '\r'.
 	lf = '\n'.
 	digit = "0123456789".
+	letter = "azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN".
 
 TOKENS
 	string = '"' {noQuote} '"'.
 	integer = digit {digit}.
 	additiveOperator = '+'.
 	multiplicativeOperator = '*'.
+	identifier = letter {letter | digit}.
+	fun = "fun".
 
 COMMENTS
 	FROM "//" TO cr lf
@@ -49,7 +52,16 @@ PRODUCTIONS
 	SubExpression<out BaseAstNode node> (. node = null; .)
 		= '(' Expression<out node> ')'
 		| Literal<out node>
+		| Identifier<out node>
+		| Function<out node>
 		.
+
+	Function<out Function node> (. BaseAstNode exprNode; Token funToken; String name = ""; .)
+		= fun (. funToken = t; .) [identifier (. name = t.val; .)] '(' ')' '{' Expression<out exprNode> '}'
+			(. node = new Function(toSnowToken(funToken), toSnowToken(t), name, exprNode); .)
+		.
+
+	Identifier<out Identifier node> = identifier (. node = new Identifier(toSnowToken(t)); .) .
 
 	Literal<out BaseAstNode node> (. node = null; .) = LiteralInteger<out node> | LiteralString<out node> .
 

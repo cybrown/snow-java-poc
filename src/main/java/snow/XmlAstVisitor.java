@@ -1,9 +1,6 @@
 package snow;
 
-import snow.ast.node.BaseAstNode;
-import snow.ast.node.Binary;
-import snow.ast.node.LiteralInteger;
-import snow.ast.node.LiteralString;
+import snow.ast.node.*;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -38,6 +35,25 @@ public class XmlAstVisitor implements IAstVisitor {
 			this.printIndentation();
 			s.println("</Binary>");
 		}
+	}
+
+	@Override
+	public void visit(Function node, boolean start) {
+		if (start) {
+			this.printIndentation();
+			s.println("<Function name=\"" + node.getName() + "\">");
+			this.incIndentation();
+		} else {
+			this.decIndentation();
+			this.printIndentation();
+			s.println("</Function>");
+		}
+	}
+
+	@Override
+	public void visit(Identifier node, boolean start) {
+		this.printIndentation();
+		s.println("<Identifier>" + node.getFirstToken().getVal() + "</Identifier>");
 	}
 
 	private PrintStream s;

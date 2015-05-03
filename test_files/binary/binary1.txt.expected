@@ -1,0 +1,7 @@
+<Binary operator="+">
+    <LiteralInteger>12</LiteralInteger>
+    <Binary operator="+">
+        <LiteralString>"12"</LiteralString>
+        <LiteralInteger>3</LiteralInteger>
+    </Binary>
+</Binary>

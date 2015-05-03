@@ -29,6 +29,7 @@ TOKENS
 	multiplicativeOperator = '*'.
 	identifier = letter {letter | digit}.
 	fun = "fun".
+	def = "def".
 
 COMMENTS
 	FROM "//" TO cr lf
@@ -37,16 +38,29 @@ IGNORE tab+cr+lf
 
 PRODUCTIONS
 
-	SnowCompilationUnit (. BaseAstNode node; .) = Expression<out node> (. this.ast = node; .) .
+	SnowCompilationUnit (. BaseAstNode node; .)
+		= Expression<out node>
+			(. this.ast = node; .)
+		.
 
-	Expression<out BaseAstNode node> = AdditiveValue<out node> .
+	Expression<out BaseAstNode node> (. node = null; .)
+		= AdditiveValue<out node>
+		| Definition<out node>
+		.
+
+	Definition<out Definition node> (. Token firstToken; Identifier id; BaseAstNode value; .)
+		= def (. firstToken = t; .) Identifier<out id> '=' Expression<out value>
+			(. node = new Definition(toSnowToken(firstToken), toSnowToken(t), id, value); .)
+		.
 
 	AdditiveValue<out BaseAstNode node> (. String operator; BaseAstNode nextNode; .)
-		= MultiplicativeValue<out node> {additiveOperator (. operator = t.val; .) MultiplicativeValue<out nextNode> (. node = new Binary(null, null, node, nextNode, operator); .) }
+		= MultiplicativeValue<out node> {additiveOperator (. operator = t.val; .) MultiplicativeValue<out nextNode>
+			(. node = new Binary(null, null, node, nextNode, operator); .) }
 		.
 
 	MultiplicativeValue<out BaseAstNode node> (. String operator; BaseAstNode nextNode; .)
-		= SubExpression<out node> {multiplicativeOperator (. operator = t.val; .) SubExpression<out nextNode> (. node = new Binary(null, null, node, nextNode, operator); .) }
+		= SubExpression<out node> {multiplicativeOperator (. operator = t.val; .) SubExpression<out nextNode>
+			(. node = new Binary(null, null, node, nextNode, operator); .) }
 		.
 
 	SubExpression<out BaseAstNode node> (. node = null; .)

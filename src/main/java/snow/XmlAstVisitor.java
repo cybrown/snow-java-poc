@@ -60,6 +60,19 @@ public class XmlAstVisitor implements IAstVisitor {
 		s.println("<Identifier>" + node.getFirstToken().getVal() + "</Identifier>");
 	}
 
+	@Override
+	public void visit(Definition definition, boolean start) {
+		if (start) {
+			this.printIndentation();
+			s.println("<Definition>");
+			this.incIndentation();
+		} else {
+			this.decIndentation();
+			this.printIndentation();
+			s.println("</Definition>");
+		}
+	}
+
 	private PrintStream s;
 
 	public XmlAstVisitor(String fileName) throws FileNotFoundException {

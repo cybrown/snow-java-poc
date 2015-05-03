@@ -1,6 +1,5 @@
 /.gradle
 /build
-/output.txt
 /*.iml
 /.idea
 /src/main/java/gen

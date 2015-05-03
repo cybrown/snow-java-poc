@@ -9,4 +9,5 @@ public interface IAstVisitor {
     void visit(Binary node, boolean start);
     void visit(Function node, boolean start);
     void visit(Identifier node, boolean start);
+    void visit(Definition definition, boolean start);
 }

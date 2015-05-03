@@ -3,7 +3,8 @@ build: coco
 
 coco:
 	mkdir -p src/main/java/gen
-	coco -package gen -o src/main/java/gen QueryForm.ATG
+	coco -package gen -o src/main/java/gen SnowCompilationUnit.ATG
+	rm -f src/main/java/gen/*.java.old
 
 clean:
 	rm -f *.class output.html Parser.java Scanner.java

@@ -1,3 +1,6 @@
 /.gradle
 /build
-/output.html
+/output.txt
+/*.iml
+/.idea
+/src/main/java/gen

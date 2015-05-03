@@ -1,19 +1,21 @@
 package snow;
 
-import java.io.*;
-import gen.Scanner;
 import gen.Parser;
+import gen.Scanner;
 
-public class MakeQueryForm {
+import java.io.FileNotFoundException;
+
+public class Main {
 
 	public static void main(String[] args) {
 		String inFileName = args[0];
 		String outFileName = args[1];
 		Scanner scanner = new Scanner(inFileName);
 		Parser parser = new Parser(scanner);
+		parser.Parse();
 		try {
-			parser.html = new HtmlGenerator(outFileName);
-			parser.Parse();
+			XmlAstVisitor visitor = new XmlAstVisitor(outFileName);
+			visitor.visit(parser.ast);
 		} catch (FileNotFoundException e) {
 			System.out.println("-- file " + outFileName + " not found");
 		}

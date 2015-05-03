@@ -3,7 +3,8 @@ defaultTasks 'coco', 'build'
 apply plugin: 'java'
 
 task coco(type: Exec) {
-    commandLine 'coco', '-package', 'gen', '-o', 'src/main/java/gen', 'QueryForm.ATG'
+    commandLine 'coco', '-package', 'gen', '-o', 'src/main/java/gen', 'SnowCompilationUnit.ATG'
+    commandLine 'rm', '-f', 'src/main/java/gen/*.java.old'
 }
 
 sourceCompatibility = 1.8
@@ -14,4 +15,12 @@ jar {
                    'Implementation-Version': version,
                    'Main-Class': 'snow.MakeQueryForm'
     }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.projectlombok:lombok:1.12.6"
 }

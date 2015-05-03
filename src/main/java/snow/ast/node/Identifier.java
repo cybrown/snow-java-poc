@@ -1,8 +1,12 @@
 package snow.ast.node;
 
+import lombok.EqualsAndHashCode;
+import lombok.Value;
 import snow.IAstVisitor;
 import snow.ast.Token;
 
+@Value
+@EqualsAndHashCode(callSuper = true)
 public class Identifier extends BaseAstNode {
 
     public Identifier(Token token) {

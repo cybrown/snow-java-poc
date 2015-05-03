@@ -10,4 +10,5 @@ public interface IAstVisitor {
     void visit(Function node, boolean start);
     void visit(Identifier node, boolean start);
     void visit(Definition definition, boolean start);
+    void visit(Call call, boolean start);
 }

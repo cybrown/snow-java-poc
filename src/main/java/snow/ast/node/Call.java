@@ -7,21 +7,19 @@ import snow.ast.Token;
 
 @Value
 @EqualsAndHashCode(callSuper = true)
-public class Function extends BaseAstNode {
+public class Call extends BaseAstNode {
 
-    private BaseAstNode body;
-    private String name;
+    private final BaseAstNode callee;
 
-    public Function(Token firstToken, Token lastToken, String name, BaseAstNode body) {
+    public Call(Token firstToken, Token lastToken, BaseAstNode callee) {
         super(firstToken, lastToken);
-        this.name = name;
-        this.body = body;
+        this.callee = callee;
     }
 
     @Override
     public void accept(IAstVisitor visitor) {
         visitor.visit(this, true);
-        this.body.accept(visitor);
+        this.callee.accept(visitor);
         visitor.visit(this, false);
     }
 }

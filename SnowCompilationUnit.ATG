@@ -53,12 +53,12 @@ PRODUCTIONS
 		= '(' Expression<out node> ')'
 		| Literal<out node>
 		| Identifier<out node>
-		| Function<out node>
+		| AnonymousFunction<out node>
 		.
 
-	Function<out Function node> (. BaseAstNode exprNode; Token funToken; String name = ""; .)
-		= fun (. funToken = t; .) [identifier (. name = t.val; .)] '(' ')' '{' Expression<out exprNode> '}'
-			(. node = new Function(toSnowToken(funToken), toSnowToken(t), name, exprNode); .)
+	AnonymousFunction<out Function node> (. BaseAstNode exprNode; Token funToken; .)
+		= fun (. funToken = t; .) '(' ')' '{' Expression<out exprNode> '}'
+			(. node = new Function(toSnowToken(funToken), toSnowToken(t), null, exprNode); .)
 		.
 
 	Identifier<out Identifier node> = identifier (. node = new Identifier(toSnowToken(t)); .) .

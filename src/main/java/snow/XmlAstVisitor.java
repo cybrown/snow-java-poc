@@ -41,7 +41,11 @@ public class XmlAstVisitor implements IAstVisitor {
 	public void visit(Function node, boolean start) {
 		if (start) {
 			this.printIndentation();
-			s.println("<Function name=\"" + node.getName() + "\">");
+			s.print("<Function");
+			if (node.getName() != null) {
+				s.print(" name=\"" + node.getName() + "\"");
+			}
+			s.println(">");
 			this.incIndentation();
 		} else {
 			this.decIndentation();

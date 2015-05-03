@@ -1,0 +1,5 @@
+<Definition>
+    <Identifier>a</Identifier>
+    <Identifier>int</Identifier>
+    <LiteralInteger>3</LiteralInteger>
+</Definition>

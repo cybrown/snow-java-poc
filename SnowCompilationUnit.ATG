@@ -51,9 +51,9 @@ PRODUCTIONS
 		.
 
 	Definition<out Definition node>
-			(. Token firstToken; Identifier id; BaseAstNode value; .)
-		= def (. firstToken = t; .) Identifier<out id> '=' Expression<out value>
-			(. node = new Definition(toSnowToken(firstToken), toSnowToken(t), id, value); .)
+			(. Token firstToken; Identifier id; BaseAstNode value; BaseAstNode typeExpr = null; .)
+		= def (. firstToken = t; .) Identifier<out id> [':' Expression<out typeExpr>] '=' Expression<out value>
+			(. node = new Definition(toSnowToken(firstToken), toSnowToken(t), id, value, typeExpr); .)
 		.
 
 	AdditiveValue<out BaseAstNode node>

@@ -1,0 +1,8 @@
+<Function>
+    <Identifier>a</Identifier>
+    <Identifier>int</Identifier>
+    <Binary operator="+">
+        <LiteralInteger>3</LiteralInteger>
+        <Identifier>a</Identifier>
+    </Binary>
+</Function>

@@ -69,8 +69,8 @@ PRODUCTIONS
 		.
 
 	CallExpression<out BaseAstNode node>
-			(. BaseAstNode callee; Token firstToken; node = null; .)
-		= SubExpression<out node> (. firstToken = t; .) ['(' ')' (. node = new Call(toSnowToken(firstToken), toSnowToken(t), node); .)]
+			(. BaseAstNode callee; Token firstToken; node = null; BaseAstNode arg = null;.)
+		= SubExpression<out node> (. firstToken = t; .) ['(' [Expression<out arg>] ')' (. node = new Call(toSnowToken(firstToken), toSnowToken(t), node, arg); .)]
 		.
 
 	SubExpression<out BaseAstNode node>
@@ -82,9 +82,9 @@ PRODUCTIONS
 		.
 
 	AnonymousFunction<out Function node>
-			(. BaseAstNode exprNode; Token funToken; .)
-		= fun (. funToken = t; .) '(' ')' '{' Expression<out exprNode> '}'
-			(. node = new Function(toSnowToken(funToken), toSnowToken(t), null, exprNode); .)
+			(. BaseAstNode exprNode; Token funToken; Identifier argName = null; BaseAstNode argType = null; .)
+		= fun (. funToken = t; .) '(' [Identifier<out argName> [':' Expression<out argType>]] ')' '{' Expression<out exprNode> '}'
+			(. node = new Function(toSnowToken(funToken), toSnowToken(t), null, exprNode, argName, argType); .)
 		.
 
 	Identifier<out Identifier node>

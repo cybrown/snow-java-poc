@@ -1,0 +1,7 @@
+<If>
+    <Binary operator="==">
+        <Identifier>a</Identifier>
+        <LiteralInteger>1</LiteralInteger>
+    </Binary>
+    <LiteralInteger>2</LiteralInteger>
+</If>

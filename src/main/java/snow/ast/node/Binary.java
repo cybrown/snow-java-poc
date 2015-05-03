@@ -1,11 +1,11 @@
 package snow.ast.node;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Value;
 import snow.IAstVisitor;
 import snow.ast.Token;
 
-@Data
+@Value
 @EqualsAndHashCode(callSuper = true)
 public class Binary extends BaseAstNode {
 

@@ -30,6 +30,8 @@ TOKENS
 	identifier = letter {letter | digit}.
 	fun = "fun".
 	def = "def".
+	if = "if".
+	else = "else".
 
 COMMENTS
 	FROM "//" TO cr lf
@@ -46,14 +48,27 @@ PRODUCTIONS
 
 	Expression<out BaseAstNode node>
 			(. node = null; .)
-		= AdditiveValue<out node>
+		= EqualityValue<out node>
+		| If<out node>
 		| Definition<out node>
+		.
+
+	If<out If node>
+			(. Token firstToken; BaseAstNode condition; BaseAstNode ifTrue; BaseAstNode ifFalse = null; .)
+		= if (. firstToken = t; .) '(' Expression<out condition> ')' Expression<out ifTrue> [IF(la.kind == _else) else Expression<out ifFalse>]
+			(. node = new If(toSnowToken(firstToken), toSnowToken(t), condition, ifTrue, ifFalse); .)
 		.
 
 	Definition<out Definition node>
 			(. Token firstToken; Identifier id; BaseAstNode value; BaseAstNode typeExpr = null; .)
 		= def (. firstToken = t; .) Identifier<out id> [':' Expression<out typeExpr>] '=' Expression<out value>
 			(. node = new Definition(toSnowToken(firstToken), toSnowToken(t), id, value, typeExpr); .)
+		.
+
+	EqualityValue<out BaseAstNode node>
+			(. String operator; BaseAstNode nextNode; .)
+		= AdditiveValue<out node> {"==" (. operator = t.val; .) AdditiveValue<out nextNode>
+			(. node = new Binary(null, null, node, nextNode, operator); .) }
 		.
 
 	AdditiveValue<out BaseAstNode node>

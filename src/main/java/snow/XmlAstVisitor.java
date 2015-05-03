@@ -89,7 +89,7 @@ public class XmlAstVisitor implements IAstVisitor {
 	private PrintStream s;
 
 	public XmlAstVisitor(String fileName) throws FileNotFoundException {
-		s = new PrintStream(fileName);
+		s = fileName == null || "-".equals(fileName) ? System.out : new PrintStream(fileName);
 	}
 
 	private int spaceCount = 0;

@@ -1,0 +1,9 @@
+<Function>
+    <Identifier>a</Identifier>
+    <Identifier>int</Identifier>
+    <Identifier>long</Identifier>
+    <Binary operator="+">
+        <LiteralInteger>3</LiteralInteger>
+        <Identifier>a</Identifier>
+    </Binary>
+</Function>

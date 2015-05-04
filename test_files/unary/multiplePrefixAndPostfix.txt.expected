@@ -1,0 +1,11 @@
+<Unary operator="--" postfix="true">
+    <Unary operator="++" postfix="true">
+        <Unary operator="!" postfix="false">
+            <Unary operator="++" postfix="false">
+                <Unary operator="--" postfix="false">
+                    <Identifier>i</Identifier>
+                </Unary>
+            </Unary>
+        </Unary>
+    </Unary>
+</Unary>

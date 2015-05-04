@@ -138,6 +138,19 @@ public class XmlAstVisitor implements IAstVisitor {
 		}
 	}
 
+	@Override
+	public void visit(Unary unary, boolean start) {
+		if (start) {
+			this.printIndentation();
+			s.println("<Unary operator=\"" + unary.getOperator() + "\" postfix=\"" + (unary.isPostfix() ? "true" : "false") + "\">");
+			this.incIndentation();
+		} else {
+			this.decIndentation();
+			this.printIndentation();
+			s.println("</Unary>");
+		}
+	}
+
 	private PrintStream s;
 
 	public XmlAstVisitor(String fileName) throws FileNotFoundException {

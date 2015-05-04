@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.List;
 import snow.ast.node.*;
+import snow.util.*;
 
 COMPILER SnowCompilationUnit
 	public BaseAstNode ast;
@@ -30,6 +32,8 @@ TOKENS
 	shiftOperator = "<<" | ">>".
 	equalityOperator = "==" | "!=".
 	relationalOperator = '<' | '>' | "<=" | ">=".
+	unaryOperator = "++" | "--".
+	prefixUnaryOperator = '!' | '~'.
 	identifier = letter {letter | digit}.
 	fun = "fun".
 	def = "def".
@@ -150,7 +154,17 @@ PRODUCTIONS
 
 	CallExpression<out BaseAstNode node>
 			(. BaseAstNode callee; Token firstToken; node = null; BaseAstNode arg = null;.)
-		= SubExpression<out node> (. firstToken = t; .) ['(' [ExpressionList<out arg>] ')' (. node = new Call(toSnowToken(firstToken), toSnowToken(t), node, arg); .)]
+		= PostfixUnaryValue<out node> (. firstToken = t; .) ['(' [ExpressionList<out arg>] ')' (. node = new Call(toSnowToken(firstToken), toSnowToken(t), node, arg); .)]
+		.
+
+	PostfixUnaryValue<out BaseAstNode node>
+			(. Token firstToken; .)
+		= PrefixUnaryValue<out node> (. firstToken = t; .) {unaryOperator (. node = new Unary(toSnowToken(firstToken), toSnowToken(t), node, t.val, true); .)}
+		.
+
+	PrefixUnaryValue<out BaseAstNode node> (. Box<BaseAstNode> boxedNode = new Box<>(null); Unary unaryNode = null; List<PartialUnary> pendingUnaries = new ArrayList<>(); .)
+		= {(unaryOperator | prefixUnaryOperator) (. pendingUnaries.add(0, new PartialUnary(null, null, t.val)); .) } SubExpression<out node> (. boxedNode.setValue(node); .)
+			(. pendingUnaries.forEach(u -> boxedNode.setValue(new Unary(u.firstToken, u.lastToken, boxedNode.getValue(), u.operator, false))); node = boxedNode.getValue(); .)
 		.
 
 	SubExpression<out BaseAstNode node>

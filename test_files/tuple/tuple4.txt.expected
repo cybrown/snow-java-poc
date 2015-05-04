@@ -1,0 +1,7 @@
+<Tuple>
+    <Tuple>
+        <LiteralInteger>1</LiteralInteger>
+        <LiteralInteger>2</LiteralInteger>
+    </Tuple>
+    <LiteralInteger>3</LiteralInteger>
+</Tuple>

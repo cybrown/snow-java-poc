@@ -12,9 +12,16 @@ abstract public class BaseAstNode {
     @Getter
     private Token lastToken;
 
+    @Getter
+    private boolean replaceable = true;
+
     public BaseAstNode(Token firstToken, Token lastToken) {
         this.firstToken = firstToken;
         this.lastToken = lastToken;
+    }
+
+    public void doNotReplace() {
+        this.replaceable = false;
     }
 
     abstract public void accept(IAstVisitor visitor);

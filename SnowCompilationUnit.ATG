@@ -54,7 +54,7 @@ PRODUCTIONS
 
 	Expression<out BaseAstNode node>
 			(. node = null; .)
-		= EqualityValue<out node>
+		= TupleValue<out node>
 		| If<out node>
 		| Definition<out node>
 		| SnowClass<out node>
@@ -70,6 +70,13 @@ PRODUCTIONS
 			(. Token firstToken; BaseAstNode condition; BaseAstNode ifTrue; BaseAstNode ifFalse = null; .)
 		= if (. firstToken = t; .) '(' ExpressionList<out condition> ')' Expression<out ifTrue> [IF(la.kind == _else) else Expression<out ifFalse>]
 			(. node = new If(toSnowToken(firstToken), toSnowToken(t), condition, ifTrue, ifFalse); .)
+		.
+
+	TupleValue<out BaseAstNode node>
+			(. Token firstToken; BaseAstNode right = null; .)
+		= EqualityValue<out node> (. firstToken = t; .) {',' EqualityValue<out right>
+			(. node = new Tuple(toSnowToken(firstToken), toSnowToken(t), node, right); .) }
+			(. node.doNotReplace(); .)
 		.
 
 	Definition<out Definition node>
@@ -110,8 +117,8 @@ PRODUCTIONS
 		.
 
 	AnonymousFunction<out Function node>
-			(. BaseAstNode exprNode; Token firstToken; Identifier argName = null; BaseAstNode argType = null; BaseAstNode returnType = null; .)
-		= fun (. firstToken = t; .) '(' [Identifier<out argName> [':' Expression<out argType>]] ')' [':' Expression<out returnType>] '{' Expression<out exprNode> '}'
+			(. BaseAstNode exprNode = null; Token firstToken; Identifier argName = null; BaseAstNode argType = null; BaseAstNode returnType = null; .)
+		= fun (. firstToken = t; .) '(' [Identifier<out argName> [':' Expression<out argType>]] ')' [':' Expression<out returnType>] '{' [Expression<out exprNode>] '}'
 			(. node = new Function(toSnowToken(firstToken), toSnowToken(t), null, exprNode, argName, argType, returnType); .)
 		.
 

@@ -11,7 +11,7 @@ import java.util.Optional;
 @EqualsAndHashCode(callSuper = true)
 public class Function extends BaseAstNode {
 
-    private BaseAstNode body;
+    private Optional<BaseAstNode> body;
     private String name;
     private Optional<Identifier> argName;
     private Optional<BaseAstNode> argType;
@@ -20,7 +20,7 @@ public class Function extends BaseAstNode {
     public Function(Token firstToken, Token lastToken, String name, BaseAstNode body, Identifier argName, BaseAstNode argType, BaseAstNode returnType) {
         super(firstToken, lastToken);
         this.name = name;
-        this.body = body;
+        this.body = Optional.ofNullable(body);
         this.argName = Optional.ofNullable(argName);
         this.argType = Optional.ofNullable(argType);
         this.returnType = Optional.ofNullable(returnType);
@@ -32,7 +32,7 @@ public class Function extends BaseAstNode {
         this.argName.ifPresent(n -> n.accept(visitor));
         this.argType.ifPresent((t -> t.accept(visitor)));
         this.returnType.ifPresent((r -> r.accept(visitor)));
-        this.body.accept(visitor);
+        this.body.ifPresent(b -> b.accept(visitor));
         visitor.visit(this, false);
     }
 }

@@ -37,3 +37,9 @@ task mkdirForCoco() << {
 task deleteAfterCoco(type: Delete) {
     delete fileTree(dir: './src/main/java/gen', include: '*.java.old')
 }
+
+task a(type: Exec) {
+    def ii = fileTree(dir: './test_files/', include: '**/*.txt') visit {
+        System.out.println(it)
+    }
+}

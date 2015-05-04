@@ -2,9 +2,9 @@ defaultTasks 'coco', 'build'
 
 apply plugin: 'java'
 
-task coco(type: Exec) {
-    commandLine 'coco', '-package', 'gen', '-o', 'src/main/java/gen', 'SnowCompilationUnit.ATG'
-    commandLine 'rm', '-f', 'src/main/java/gen/*.java.old'
+task coco(type: Exec, dependsOn: ':mkdirForCoco') {
+    commandLine 'java', '-jar', './coco/Coco.jar', '-frames', './coco/', '-package', 'gen', '-o', 'src/main/java/gen', 'SnowCompilationUnit.ATG'
+    finalizedBy 'deleteAfterCoco'
 }
 
 sourceCompatibility = 1.8
@@ -27,4 +27,13 @@ dependencies {
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
+}
+
+task mkdirForCoco() << {
+    def directory = new File('./src/main/java/gen')
+    directory.mkdirs();
+}
+
+task deleteAfterCoco(type: Delete) {
+    delete fileTree(dir: './src/main/java/gen', include: '*.java.old')
 }

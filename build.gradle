@@ -24,3 +24,7 @@ repositories {
 dependencies {
     compile "org.projectlombok:lombok:1.12.6"
 }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}

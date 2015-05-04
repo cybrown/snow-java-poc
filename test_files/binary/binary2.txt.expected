@@ -1,0 +1,55 @@
+<Binary operator="||">
+    <Binary operator="&&">
+        <Binary operator="|">
+            <Binary operator="&">
+                <Binary operator=">>">
+                    <Binary operator="<<">
+                        <Binary operator="-">
+                            <Binary operator="+">
+                                <LiteralInteger>1</LiteralInteger>
+                                <LiteralInteger>2</LiteralInteger>
+                            </Binary>
+                            <Binary operator="%">
+                                <Binary operator="/">
+                                    <Binary operator="*">
+                                        <LiteralInteger>3</LiteralInteger>
+                                        <LiteralInteger>4</LiteralInteger>
+                                    </Binary>
+                                    <LiteralInteger>6</LiteralInteger>
+                                </Binary>
+                                <LiteralInteger>7</LiteralInteger>
+                            </Binary>
+                        </Binary>
+                        <LiteralInteger>8</LiteralInteger>
+                    </Binary>
+                    <LiteralInteger>9</LiteralInteger>
+                </Binary>
+                <LiteralInteger>0</LiteralInteger>
+            </Binary>
+            <Binary operator="^">
+                <Binary operator="!=">
+                    <Binary operator="==">
+                        <Binary operator=">">
+                            <Binary operator="<">
+                                <LiteralInteger>1</LiteralInteger>
+                                <LiteralInteger>2</LiteralInteger>
+                            </Binary>
+                            <LiteralInteger>3</LiteralInteger>
+                        </Binary>
+                        <LiteralInteger>4</LiteralInteger>
+                    </Binary>
+                    <Binary operator=">=">
+                        <Binary operator="<=">
+                            <LiteralInteger>5</LiteralInteger>
+                            <LiteralInteger>6</LiteralInteger>
+                        </Binary>
+                        <LiteralInteger>7</LiteralInteger>
+                    </Binary>
+                </Binary>
+                <LiteralInteger>8</LiteralInteger>
+            </Binary>
+        </Binary>
+        <LiteralInteger>9</LiteralInteger>
+    </Binary>
+    <LiteralInteger>0</LiteralInteger>
+</Binary>

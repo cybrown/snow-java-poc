@@ -25,8 +25,11 @@ CHARACTERS
 TOKENS
 	string = '"' {noQuote} '"'.
 	integer = digit {digit}.
-	additiveOperator = '+'.
-	multiplicativeOperator = '*'.
+	additiveOperator = '+' | '-'.
+	multiplicativeOperator = '*' | '/' | '%'.
+	shiftOperator = "<<" | ">>".
+	equalityOperator = "==" | "!=".
+	relationalOperator = '<' | '>' | "<=" | ">=".
 	identifier = letter {letter | digit}.
 	fun = "fun".
 	def = "def".
@@ -74,7 +77,7 @@ PRODUCTIONS
 
 	TupleValue<out BaseAstNode node>
 			(. Token firstToken; BaseAstNode right = null; .)
-		= EqualityValue<out node> (. firstToken = t; .) {',' EqualityValue<out right>
+		= LogicalOrValue<out node> (. firstToken = t; .) {',' LogicalOrValue<out right>
 			(. node = new Tuple(toSnowToken(firstToken), toSnowToken(t), node, right); .) }
 			(. node.doNotReplace(); .)
 		.
@@ -85,9 +88,51 @@ PRODUCTIONS
 			(. node = new Definition(toSnowToken(firstToken), toSnowToken(t), id, value, typeExpr); .)
 		.
 
+	LogicalOrValue<out BaseAstNode node>
+			(. String operator; BaseAstNode nextNode; .)
+		= LogicalAndValue<out node> {"||" (. operator = t.val; .) LogicalAndValue<out nextNode>
+			(. node = new Binary(null, null, node, nextNode, operator); .) }
+		.
+
+	LogicalAndValue<out BaseAstNode node>
+			(. String operator; BaseAstNode nextNode; .)
+		= BitwiseOrValue<out node> {"&&" (. operator = t.val; .) BitwiseOrValue<out nextNode>
+			(. node = new Binary(null, null, node, nextNode, operator); .) }
+		.
+
+	BitwiseOrValue<out BaseAstNode node>
+			(. String operator; BaseAstNode nextNode; .)
+		= BitwiseXorValue<out node> {'|' (. operator = t.val; .) BitwiseXorValue<out nextNode>
+			(. node = new Binary(null, null, node, nextNode, operator); .) }
+		.
+
+	BitwiseXorValue<out BaseAstNode node>
+			(. String operator; BaseAstNode nextNode; .)
+		= BitwiseAndValue<out node> {'^' (. operator = t.val; .) BitwiseAndValue<out nextNode>
+			(. node = new Binary(null, null, node, nextNode, operator); .) }
+		.
+
+	BitwiseAndValue<out BaseAstNode node>
+			(. String operator; BaseAstNode nextNode; .)
+		= EqualityValue<out node> {'&' (. operator = t.val; .) EqualityValue<out nextNode>
+			(. node = new Binary(null, null, node, nextNode, operator); .) }
+		.
+
 	EqualityValue<out BaseAstNode node>
 			(. String operator; BaseAstNode nextNode; .)
-		= AdditiveValue<out node> {"==" (. operator = t.val; .) AdditiveValue<out nextNode>
+		= RelationalValue<out node> {equalityOperator (. operator = t.val; .) RelationalValue<out nextNode>
+			(. node = new Binary(null, null, node, nextNode, operator); .) }
+		.
+
+	RelationalValue<out BaseAstNode node>
+			(. String operator; BaseAstNode nextNode; .)
+		= ShiftValue<out node> {relationalOperator (. operator = t.val; .) ShiftValue<out nextNode>
+			(. node = new Binary(null, null, node, nextNode, operator); .) }
+		.
+
+	ShiftValue<out BaseAstNode node>
+			(. String operator; BaseAstNode nextNode; .)
+		= AdditiveValue<out node> {shiftOperator (. operator = t.val; .) AdditiveValue<out nextNode>
 			(. node = new Binary(null, null, node, nextNode, operator); .) }
 		.
 

@@ -112,6 +112,19 @@ public class XmlAstVisitor implements IAstVisitor {
 		}
 	}
 
+	@Override
+	public void visit(SnowClass node, boolean start) {
+		if (start) {
+			this.printIndentation();
+			s.println("<SnowClass>");
+			this.incIndentation();
+		} else {
+			this.decIndentation();
+			this.printIndentation();
+			s.println("</SnowClass>");
+		}
+	}
+
 	private PrintStream s;
 
 	public XmlAstVisitor(String fileName) throws FileNotFoundException {

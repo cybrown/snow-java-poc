@@ -32,6 +32,7 @@ TOKENS
 	def = "def".
 	if = "if".
 	else = "else".
+	class = "class".
 
 COMMENTS
 	FROM "//" TO cr lf
@@ -56,6 +57,13 @@ PRODUCTIONS
 		= EqualityValue<out node>
 		| If<out node>
 		| Definition<out node>
+		| SnowClass<out node>
+		.
+
+	SnowClass<out SnowClass node>
+			(. Token firstToken; Identifier id; .)
+		= class (. firstToken = t; .) Identifier<out id> '{' '}'
+			(. node = new SnowClass(toSnowToken(firstToken), toSnowToken(t), id); .)
 		.
 
 	If<out If node>

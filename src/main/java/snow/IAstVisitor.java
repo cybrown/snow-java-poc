@@ -13,4 +13,5 @@ public interface IAstVisitor {
     void visit(Call call, boolean start);
     void visit(If node, boolean start);
     void visit(ExpressionList node, boolean start);
+    void visit(SnowClass node, boolean start);
 }

@@ -1,13 +1,6 @@
-build: coco
-	javac Scanner.java Parser.java HtmlGenerator.java MakeQueryForm.java
-
-coco:
+coco: FORCE
 	mkdir -p src/main/java/gen
-	coco -package gen -o src/main/java/gen SnowCompilationUnit.ATG
+	java -jar ./coco/Coco.jar -frames ./coco/ -package gen -o src/main/java/gen SnowCompilationUnit.ATG
 	rm -f src/main/java/gen/*.java.old
 
-clean:
-	rm -f *.class output.html Parser.java Scanner.java
-
-run:
-	java MakeQueryForm input.txt output.html
+FORCE:

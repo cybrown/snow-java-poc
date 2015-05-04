@@ -61,9 +61,9 @@ PRODUCTIONS
 		.
 
 	SnowClass<out SnowClass node>
-			(. Token firstToken; Identifier id; .)
-		= class (. firstToken = t; .) Identifier<out id> '{' '}'
-			(. node = new SnowClass(toSnowToken(firstToken), toSnowToken(t), id); .)
+			(. Token firstToken; Identifier id; BaseAstNode body = null; .)
+		= class (. firstToken = t; .) Identifier<out id> '{' [ExpressionList<out body>] '}'
+			(. node = new SnowClass(toSnowToken(firstToken), toSnowToken(t), id, body); .)
 		.
 
 	If<out If node>

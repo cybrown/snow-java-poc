@@ -1,0 +1,19 @@
+<SnowClass>
+    <Identifier>Foo</Identifier>
+    <ExpressionList>
+        <Definition>
+            <Identifier>a</Identifier>
+            <Identifier>int</Identifier>
+            <LiteralInteger>4</LiteralInteger>
+        </Definition>
+        <Definition>
+            <Identifier>aPlusOne</Identifier>
+            <Function>
+                <Binary operator="+">
+                    <Identifier>a</Identifier>
+                    <LiteralInteger>1</LiteralInteger>
+                </Binary>
+            </Function>
+        </Definition>
+    </ExpressionList>
+</SnowClass>

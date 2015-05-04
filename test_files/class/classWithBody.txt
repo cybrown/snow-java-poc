@@ -1,0 +1,4 @@
+class Foo {
+    def a: int = 4;
+    def aPlusOne = fun () {a + 1}
+}

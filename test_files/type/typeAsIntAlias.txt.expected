@@ -1,5 +1,4 @@
 <SnowType>
     <Identifier>IFoo</Identifier>
-    <SnowInterface>
-    </SnowInterface>
+    <Identifier>int</Identifier>
 </SnowType>

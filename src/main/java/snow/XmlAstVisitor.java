@@ -186,15 +186,15 @@ public class XmlAstVisitor implements IAstVisitor {
 	}
 
 	@Override
-	public void visit(SnowTypeMember node, boolean start) {
+	public void visit(InterfaceMember node, boolean start) {
 		if (start) {
 			this.printIndentation();
-			s.println("<SnowTypeMember>");
+			s.println("<InterfaceMember>");
 			this.incIndentation();
 		} else {
 			this.decIndentation();
 			this.printIndentation();
-			s.println("</SnowTypeMember>");
+			s.println("</InterfaceMember>");
 		}
 	}
 
@@ -208,6 +208,19 @@ public class XmlAstVisitor implements IAstVisitor {
 			this.decIndentation();
 			this.printIndentation();
 			s.println("</Argument>");
+		}
+	}
+
+	@Override
+	public void visit(SnowInterface node, boolean start) {
+		if (start) {
+			this.printIndentation();
+			s.println("<SnowInterface>");
+			this.incIndentation();
+		} else {
+			this.decIndentation();
+			this.printIndentation();
+			s.println("</SnowInterface>");
 		}
 	}
 

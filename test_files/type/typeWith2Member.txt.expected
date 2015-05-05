@@ -1,23 +1,25 @@
 <SnowType>
     <Identifier>IFoo</Identifier>
-    <SnowTypeMember>
-        <Identifier>doSmth</Identifier>
-        <Argument>
-            <Identifier>value</Identifier>
+    <SnowInterface>
+        <InterfaceMember>
+            <Identifier>doSmth</Identifier>
+            <Argument>
+                <Identifier>value</Identifier>
+                <Identifier>int</Identifier>
+            </Argument>
             <Identifier>int</Identifier>
-        </Argument>
-        <Identifier>int</Identifier>
-    </SnowTypeMember>
-    <SnowTypeMember>
-        <Identifier>doSmthElse</Identifier>
-        <Argument>
-            <Identifier>value</Identifier>
-            <Identifier>int</Identifier>
-        </Argument>
-        <Argument>
-            <Identifier>value2</Identifier>
-            <Identifier>string</Identifier>
-        </Argument>
-        <Identifier>long</Identifier>
-    </SnowTypeMember>
+        </InterfaceMember>
+        <InterfaceMember>
+            <Identifier>doSmthElse</Identifier>
+            <Argument>
+                <Identifier>value</Identifier>
+                <Identifier>int</Identifier>
+            </Argument>
+            <Argument>
+                <Identifier>value2</Identifier>
+                <Identifier>string</Identifier>
+            </Argument>
+            <Identifier>long</Identifier>
+        </InterfaceMember>
+    </SnowInterface>
 </SnowType>

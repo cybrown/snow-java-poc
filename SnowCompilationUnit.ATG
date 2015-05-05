@@ -69,7 +69,27 @@ PRODUCTIONS
 		.
 
 	TypeExpression<out BaseAstNode node>
+			(. node = null; .)
 		= GenericTypeExpression<out node>
+		| InterfaceTypeExpression<out node>
+		.
+
+	InterfaceTypeExpression<out SnowInterface node>
+			(. Token firstToken; Identifier name; InterfaceMember currentMember; List<InterfaceMember> members = new ArrayList<>(); .)
+		= '{' (. firstToken = t; .) {InterfaceMember<out currentMember> (. members.add(currentMember); .) ';'} '}'
+			(. node = new SnowInterface(toSnowToken(firstToken), toSnowToken(t), members); .)
+		.
+
+	InterfaceMember<out InterfaceMember node>
+			(. Token firstToken; List<Argument> arguments = new ArrayList<>(); Argument currentArgument; Identifier identifier; BaseAstNode typeExpr; .)
+		= Identifier<out identifier> (. firstToken = t; .) [ '(' [Argument<out currentArgument> (. arguments.add(currentArgument); .) {',' Argument<out currentArgument> (. arguments.add(currentArgument); .)}] ')' ] ':' TypeExpression<out typeExpr>
+			(. node = new InterfaceMember(toSnowToken(firstToken), toSnowToken(t), identifier, arguments, typeExpr); .)
+		.
+
+	Argument<out Argument node>
+			(. Token firstToken; BaseAstNode typeExpr; Identifier identifier; .)
+		= Identifier<out identifier> (. firstToken = t; .) ':' TypeExpression<out typeExpr>
+			(. node = new Argument(toSnowToken(firstToken), toSnowToken(t), identifier, typeExpr); .)
 		.
 
 	GenericTypeExpression<out BaseAstNode node>
@@ -79,21 +99,9 @@ PRODUCTIONS
 		.
 
 	SnowType<out BaseAstNode node>
-			(. Token firstToken; List<SnowTypeMember> members = new ArrayList<>(); SnowTypeMember currentMember; Identifier name; .)
-		= "type" (. firstToken = t; .) Identifier<out name> '{' {SnowTypeMember<out currentMember> (. members.add(currentMember); .) ';'} '}'
-			(. node = new SnowType(toSnowToken(firstToken), toSnowToken(t), name, members); .)
-		.
-
-	SnowTypeMember<out SnowTypeMember node>
-			(. Token firstToken; List<Argument> arguments = new ArrayList<>(); Argument currentArgument; Identifier identifier; BaseAstNode typeExpr; .)
-		= Identifier<out identifier> (. firstToken = t; .) [ '(' [Argument<out currentArgument> (. arguments.add(currentArgument); .) {',' Argument<out currentArgument> (. arguments.add(currentArgument); .)}] ')' ] ':' TypeExpression<out typeExpr>
-			(. node = new SnowTypeMember(toSnowToken(firstToken), toSnowToken(t), identifier, arguments, typeExpr); .)
-		.
-
-	Argument<out Argument node>
-			(. Token firstToken; BaseAstNode typeExpr; Identifier identifier; .)
-		= Identifier<out identifier> (. firstToken = t; .) ':' TypeExpression<out typeExpr>
-			(. node = new Argument(toSnowToken(firstToken), toSnowToken(t), identifier, typeExpr); .)
+			(. Token firstToken; Identifier name; BaseAstNode typeExpr; .)
+		= "type" (. firstToken = t; .) Identifier<out name> TypeExpression<out typeExpr>
+			(. node = new SnowType(toSnowToken(firstToken), toSnowToken(t), name, typeExpr); .)
 		.
 
 	SnowClass<out SnowClass node>

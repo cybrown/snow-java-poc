@@ -1,0 +1,13 @@
+<PrimitiveOperation>
+    <Identifier>add</Identifier>
+    <Tuple>
+        <Identifier>a</Identifier>
+        <PrimitiveOperation>
+            <Identifier>mul</Identifier>
+            <Tuple>
+                <LiteralInteger>4</LiteralInteger>
+                <Identifier>e</Identifier>
+            </Tuple>
+        </PrimitiveOperation>
+    </Tuple>
+</PrimitiveOperation>

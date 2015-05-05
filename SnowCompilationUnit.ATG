@@ -198,6 +198,13 @@ PRODUCTIONS
 		| Literal<out node>
 		| Identifier<out node>
 		| AnonymousFunction<out node>
+		| PrimitiveOperation<out node>
+		.
+
+	PrimitiveOperation<out BaseAstNode node>
+			(. Token firstToken; BaseAstNode body; Identifier operationIdentifier; .)
+		= '#' (. firstToken = t; .) Identifier<out operationIdentifier> '(' ExpressionList<out body> ')'
+			(. node = new PrimitiveOperation(toSnowToken(firstToken), toSnowToken(t), operationIdentifier, body); .)
 		.
 
 	AnonymousFunction<out Function node>

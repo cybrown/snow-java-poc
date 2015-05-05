@@ -1,0 +1,7 @@
+<PrimitiveOperation>
+    <Identifier>add</Identifier>
+    <Tuple>
+        <Identifier>a</Identifier>
+        <LiteralInteger>1</LiteralInteger>
+    </Tuple>
+</PrimitiveOperation>

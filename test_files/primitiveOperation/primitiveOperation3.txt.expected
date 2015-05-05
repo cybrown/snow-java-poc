@@ -1,0 +1,4 @@
+<PrimitiveOperation>
+    <Identifier>neg</Identifier>
+    <LiteralInteger>3</LiteralInteger>
+</PrimitiveOperation>

@@ -82,6 +82,19 @@ public class XmlAstVisitor implements IAstVisitor {
 	}
 
 	@Override
+	public void visit(Generic node, boolean start) {
+		if (start) {
+			this.printIndentation();
+			s.println("<Generic>");
+			this.incIndentation();
+		} else {
+			this.decIndentation();
+			this.printIndentation();
+			s.println("</Generic>");
+		}
+	}
+
+	@Override
 	public void visit(If node, boolean start) {
 		if (start) {
 			this.printIndentation();

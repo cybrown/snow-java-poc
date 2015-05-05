@@ -29,9 +29,7 @@ TOKENS
 	integer = digit {digit}.
 	additiveOperator = '+' | '-'.
 	multiplicativeOperator = '*' | '/' | '%'.
-	shiftOperator = "<<" | ">>".
 	equalityOperator = "==" | "!=".
-	relationalOperator = '<' | '>' | "<=" | ">=".
 	unaryOperator = "++" | "--".
 	prefixUnaryOperator = '!' | '~'.
 	identifier = letter {letter | digit}.
@@ -67,6 +65,16 @@ PRODUCTIONS
 		| SnowClass<out node>
 		.
 
+	TypeExpression<out BaseAstNode node>
+		= GenericTypeExpression<out node>
+		.
+
+	GenericTypeExpression<out BaseAstNode node>
+			(. Token firstToken; BaseAstNode typeExpr = null; .)
+		= Identifier<out node> (. firstToken = t; .) [ '<' TypeExpression<out typeExpr> '>'
+			(. node = new Generic(toSnowToken(firstToken), toSnowToken(t), node, typeExpr); .) ]
+		.
+
 	SnowClass<out SnowClass node>
 			(. Token firstToken; Identifier id; BaseAstNode body = null; .)
 		= class (. firstToken = t; .) Identifier<out id> '{' [ExpressionList<out body>] '}'
@@ -88,7 +96,7 @@ PRODUCTIONS
 
 	Definition<out Definition node>
 			(. Token firstToken; Identifier id; BaseAstNode value; BaseAstNode typeExpr = null; .)
-		= def (. firstToken = t; .) Identifier<out id> [':' Expression<out typeExpr>] '=' Expression<out value>
+		= def (. firstToken = t; .) Identifier<out id> [':' TypeExpression<out typeExpr>] '=' Expression<out value>
 			(. node = new Definition(toSnowToken(firstToken), toSnowToken(t), id, value, typeExpr); .)
 		.
 
@@ -130,14 +138,27 @@ PRODUCTIONS
 
 	RelationalValue<out BaseAstNode node>
 			(. String operator; BaseAstNode nextNode; .)
-		= ShiftValue<out node> {relationalOperator (. operator = t.val; .) ShiftValue<out nextNode>
+		= ShiftValue<out node> {RelationalOperator (. operator = t.val; .) ShiftValue<out nextNode>
 			(. node = new Binary(null, null, node, nextNode, operator); .) }
+		.
+
+
+	RelationalOperator
+		= '<'
+		| '>'
+		| "<="
+		| ">="
 		.
 
 	ShiftValue<out BaseAstNode node>
 			(. String operator; BaseAstNode nextNode; .)
-		= AdditiveValue<out node> {shiftOperator (. operator = t.val; .) AdditiveValue<out nextNode>
+		= AdditiveValue<out node> {ShiftOperator (. operator = t.val; .) AdditiveValue<out nextNode>
 			(. node = new Binary(null, null, node, nextNode, operator); .) }
+		.
+
+	ShiftOperator
+		= "<<"
+		| ">>"
 		.
 
 	AdditiveValue<out BaseAstNode node>
@@ -181,7 +202,7 @@ PRODUCTIONS
 
 	AnonymousFunction<out Function node>
 			(. BaseAstNode exprNode = null; Token firstToken; Identifier argName = null; BaseAstNode argType = null; BaseAstNode returnType = null; .)
-		= fun (. firstToken = t; .) '(' [Identifier<out argName> [':' Expression<out argType>]] ')' [':' Expression<out returnType>] '{' [Expression<out exprNode>] '}'
+		= fun (. firstToken = t; .) '(' [Identifier<out argName> [':' TypeExpression<out argType>]] ')' [':' TypeExpression<out returnType>] '{' [Expression<out exprNode>] '}'
 			(. node = new Function(toSnowToken(firstToken), toSnowToken(t), null, exprNode, argName, argType, returnType); .)
 		.
 

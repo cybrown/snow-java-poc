@@ -17,7 +17,7 @@ public class Main {
 			Parser parser = new Parser(scanner);
 			parser.Parse();
 			XmlAstVisitor visitor = new XmlAstVisitor(outFileName);
-			visitor.visit(parser.ast);
+			parser.ast.accept(visitor);
 		} catch (FileNotFoundException e) {
 			System.out.println("-- file " + outFileName + " not found");
 		}

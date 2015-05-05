@@ -8,11 +8,6 @@ import java.io.PrintStream;
 public class XmlAstVisitor implements IAstVisitor {
 
 	@Override
-	public void visit(BaseAstNode node) {
-		node.accept(this);
-	}
-
-	@Override
 	public void visit(LiteralInteger node, boolean start) {
 		this.printIndentation();
 		s.println("<LiteralInteger>" + node.getFirstToken().getVal() + "</LiteralInteger>");

@@ -163,8 +163,16 @@ PRODUCTIONS
 		.
 
 	PrefixUnaryValue<out BaseAstNode node> (. Box<BaseAstNode> boxedNode = new Box<>(null); Unary unaryNode = null; List<PartialUnary> pendingUnaries = new ArrayList<>(); .)
-		= {(unaryOperator | prefixUnaryOperator) (. pendingUnaries.add(0, new PartialUnary(null, null, t.val)); .) } SubExpression<out node> (. boxedNode.setValue(node); .)
+		= {(unaryOperator | prefixUnaryOperator) (. pendingUnaries.add(0, new PartialUnary(null, null, t.val)); .) } AccessValue<out node> (. boxedNode.setValue(node); .)
 			(. pendingUnaries.forEach(u -> boxedNode.setValue(new Unary(u.firstToken, u.lastToken, boxedNode.getValue(), u.operator, false))); node = boxedNode.getValue(); .)
+		.
+
+	AccessValue<out BaseAstNode node>
+			(. String operator; BaseAstNode nextNode; .)
+		= SubExpression<out node> {
+				('.' (. operator = t.val; .) SubExpression<out nextNode>) (. node = new Binary(null, null, node, nextNode, operator); .)
+				| ('[' (. operator = t.val; .) SubExpression<out nextNode> ']') (. node = new Binary(null, null, node, nextNode, operator); .)
+			}
 		.
 
 	SubExpression<out BaseAstNode node>

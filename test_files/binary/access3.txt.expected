@@ -1,0 +1,13 @@
+<Binary operator="+">
+    <Binary operator="[">
+        <Binary operator=".">
+            <Identifier>a</Identifier>
+            <Identifier>property</Identifier>
+        </Binary>
+        <LiteralInteger>0</LiteralInteger>
+    </Binary>
+    <Binary operator="+">
+        <LiteralString>"12"</LiteralString>
+        <LiteralInteger>3</LiteralInteger>
+    </Binary>
+</Binary>

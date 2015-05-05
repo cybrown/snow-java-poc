@@ -1,0 +1,11 @@
+<Unary operator="++" postfix="true">
+    <Binary operator="[">
+        <Call>
+            <Binary operator=".">
+                <Identifier>object</Identifier>
+                <Identifier>getValue</Identifier>
+            </Binary>
+        </Call>
+        <LiteralInteger>0</LiteralInteger>
+    </Binary>
+</Unary>

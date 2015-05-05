@@ -148,13 +148,8 @@ PRODUCTIONS
 
 	MultiplicativeValue<out BaseAstNode node>
 			(. String operator; BaseAstNode nextNode; .)
-		= CallExpression<out node> {multiplicativeOperator (. operator = t.val; .) CallExpression<out nextNode>
+		= PostfixUnaryValue<out node> {multiplicativeOperator (. operator = t.val; .) PostfixUnaryValue<out nextNode>
 			(. node = new Binary(null, null, node, nextNode, operator); .) }
-		.
-
-	CallExpression<out BaseAstNode node>
-			(. BaseAstNode callee; Token firstToken; node = null; BaseAstNode arg = null;.)
-		= PostfixUnaryValue<out node> (. firstToken = t; .) ['(' [ExpressionList<out arg>] ')' (. node = new Call(toSnowToken(firstToken), toSnowToken(t), node, arg); .)]
 		.
 
 	PostfixUnaryValue<out BaseAstNode node>
@@ -168,10 +163,11 @@ PRODUCTIONS
 		.
 
 	AccessValue<out BaseAstNode node>
-			(. String operator; BaseAstNode nextNode; .)
-		= SubExpression<out node> {
+			(. Token firstToken; String operator; BaseAstNode nextNode; BaseAstNode arg = null; .)
+		= SubExpression<out node> (. firstToken = t; .) {
 				('.' (. operator = t.val; .) SubExpression<out nextNode>) (. node = new Binary(null, null, node, nextNode, operator); .)
 				| ('[' (. operator = t.val; .) SubExpression<out nextNode> ']') (. node = new Binary(null, null, node, nextNode, operator); .)
+				| '(' [ExpressionList<out arg>] ')' (. node = new Call(toSnowToken(firstToken), toSnowToken(t), node, arg); .)
 			}
 		.
 

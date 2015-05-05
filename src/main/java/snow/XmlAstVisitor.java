@@ -172,6 +172,45 @@ public class XmlAstVisitor implements IAstVisitor {
 		}
 	}
 
+	@Override
+	public void visit(SnowType node, boolean start) {
+		if (start) {
+			this.printIndentation();
+			s.println("<SnowType>");
+			this.incIndentation();
+		} else {
+			this.decIndentation();
+			this.printIndentation();
+			s.println("</SnowType>");
+		}
+	}
+
+	@Override
+	public void visit(SnowTypeMember node, boolean start) {
+		if (start) {
+			this.printIndentation();
+			s.println("<SnowTypeMember>");
+			this.incIndentation();
+		} else {
+			this.decIndentation();
+			this.printIndentation();
+			s.println("</SnowTypeMember>");
+		}
+	}
+
+	@Override
+	public void visit(Argument node, boolean start) {
+		if (start) {
+			this.printIndentation();
+			s.println("<Argument>");
+			this.incIndentation();
+		} else {
+			this.decIndentation();
+			this.printIndentation();
+			s.println("</Argument>");
+		}
+	}
+
 	private PrintStream s;
 
 	public XmlAstVisitor(String fileName) throws FileNotFoundException {

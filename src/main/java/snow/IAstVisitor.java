@@ -17,4 +17,7 @@ public interface IAstVisitor {
     void visit(Tuple tuple, boolean start);
     void visit(Unary unary, boolean start);
     void visit(PrimitiveOperation node, boolean start);
+    void visit(SnowType node, boolean start);
+    void visit(SnowTypeMember node, boolean start);
+    void visit(Argument node, boolean start);
 }

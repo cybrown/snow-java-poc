@@ -1,0 +1,11 @@
+<SnowType>
+    <Identifier>IFoo</Identifier>
+    <SnowTypeMember>
+        <Identifier>doSmth</Identifier>
+        <Argument>
+            <Identifier>value</Identifier>
+            <Identifier>int</Identifier>
+        </Argument>
+        <Identifier>int</Identifier>
+    </SnowTypeMember>
+</SnowType>

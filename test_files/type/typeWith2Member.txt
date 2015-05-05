@@ -1,0 +1,4 @@
+type IFoo {
+    doSmth(value: int): int;
+    doSmthElse(value: int, value2: string): long;
+}

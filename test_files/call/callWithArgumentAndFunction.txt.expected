@@ -1,0 +1,12 @@
+<Call>
+    <Identifier>foo</Identifier>
+    <Tuple>
+        <LiteralInteger>3</LiteralInteger>
+        <Function>
+            <Binary operator="+">
+                <LiteralInteger>1</LiteralInteger>
+                <LiteralInteger>1</LiteralInteger>
+            </Binary>
+        </Function>
+    </Tuple>
+</Call>

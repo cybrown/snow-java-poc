@@ -24,6 +24,11 @@ public class Tuple extends BaseAstNode {
         this.expressions.add(right);
     }
 
+    public Tuple(Token firstToken, Token lastToken, List<BaseAstNode> expressions) {
+        super(firstToken, lastToken);
+        this.expressions.addAll(expressions);
+    }
+
     @Override
     public void accept(IAstVisitor visitor) {
         visitor.visit(this, true);

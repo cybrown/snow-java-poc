@@ -2,9 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 import snow.ast.node.*;
 import snow.util.*;
+import snow.util.AstUtil;
 
 COMPILER SnowCompilationUnit
 	public BaseAstNode ast;
+	public AstUtil u;
 
 	public snow.ast.Token toSnowToken(Token t) {
 		return new snow.ast.Token(
@@ -184,11 +186,11 @@ PRODUCTIONS
 		.
 
 	AccessValue<out BaseAstNode node>
-			(. Token firstToken; String operator; BaseAstNode nextNode; BaseAstNode arg = null; .)
+			(. Token firstToken; String operator; BaseAstNode nextNode; BaseAstNode arg = null; BaseAstNode funcBody = null; .)
 		= SubExpression<out node> (. firstToken = t; .) {
 				('.' (. operator = t.val; .) SubExpression<out nextNode>) (. node = new Binary(null, null, node, nextNode, operator); .)
 				| ('[' (. operator = t.val; .) SubExpression<out nextNode> ']') (. node = new Binary(null, null, node, nextNode, operator); .)
-				| '(' [ExpressionList<out arg>] ')' (. node = new Call(toSnowToken(firstToken), toSnowToken(t), node, arg); .)
+				| '(' [ExpressionList<out arg>] ')' [ '{' ExpressionList<out funcBody> '}' ] (. node = new Call(toSnowToken(firstToken), toSnowToken(t), node, u.addToTuple(arg, funcBody)); .)
 			}
 		.
 

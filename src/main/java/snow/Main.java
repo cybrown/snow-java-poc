@@ -2,6 +2,7 @@ package snow;
 
 import gen.Parser;
 import gen.Scanner;
+import snow.util.AstUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,6 +16,7 @@ public class Main {
 		try {
 			Scanner scanner = new Scanner(inFileName == null || "-".equals(inFileName) ? System.in : new FileInputStream(new File(inFileName)));
 			Parser parser = new Parser(scanner);
+			parser.u = new AstUtil();
 			parser.Parse();
 			XmlAstVisitor visitor = new XmlAstVisitor(outFileName);
 			parser.ast.accept(visitor);

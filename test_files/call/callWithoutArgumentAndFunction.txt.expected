@@ -1,0 +1,9 @@
+<Call>
+    <Identifier>foo</Identifier>
+    <Function>
+        <Binary operator="+">
+            <LiteralInteger>1</LiteralInteger>
+            <LiteralInteger>1</LiteralInteger>
+        </Binary>
+    </Function>
+</Call>

@@ -1,0 +1,11 @@
+<SnowType>
+    <Identifier>ArrayOfArrayOfStringAndInt</Identifier>
+    <ArrayType>
+        <ArrayType>
+            <TypeTuple>
+                <Identifier>String</Identifier>
+                <Identifier>int</Identifier>
+            </TypeTuple>
+        </ArrayType>
+    </ArrayType>
+</SnowType>

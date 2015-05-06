@@ -69,6 +69,12 @@ PRODUCTIONS
 		.
 
 	TypeExpression<out BaseAstNode node>
+			(. Token firstToken; .)
+		= NotArrayTypeExpression<out node> (. firstToken = t; .) {'[' ']'
+			(. node = new ArrayType(toSnowToken(firstToken), toSnowToken(t), node); .)}
+		.
+
+	NotArrayTypeExpression<out BaseAstNode node>
 			(. node = null; .)
 		= GenericTypeExpression<out node>
 		| InterfaceTypeExpression<out node>

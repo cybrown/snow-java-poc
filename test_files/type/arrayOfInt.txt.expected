@@ -1,0 +1,7 @@
+<Definition>
+    <Identifier>a</Identifier>
+    <ArrayType>
+        <Identifier>int</Identifier>
+    </ArrayType>
+    <LiteralInteger>0</LiteralInteger>
+</Definition>

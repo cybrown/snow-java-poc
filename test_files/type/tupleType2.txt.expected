@@ -1,0 +1,7 @@
+<SnowType>
+    <Identifier>StringAndInt</Identifier>
+    <TypeTuple>
+        <Identifier>String</Identifier>
+        <Identifier>int</Identifier>
+    </TypeTuple>
+</SnowType>

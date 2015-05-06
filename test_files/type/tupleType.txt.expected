@@ -1,0 +1,7 @@
+<SnowType>
+    <Identifier>TwoInts</Identifier>
+    <TypeTuple>
+        <Identifier>int</Identifier>
+        <Identifier>int</Identifier>
+    </TypeTuple>
+</SnowType>

@@ -224,6 +224,19 @@ public class XmlAstVisitor implements IAstVisitor {
 		}
 	}
 
+	@Override
+	public void visit(TypeTuple node, boolean start) {
+		if (start) {
+			this.printIndentation();
+			s.println("<TypeTuple>");
+			this.incIndentation();
+		} else {
+			this.decIndentation();
+			this.printIndentation();
+			s.println("</TypeTuple>");
+		}
+	}
+
 	private PrintStream s;
 
 	public XmlAstVisitor(String fileName) throws FileNotFoundException {

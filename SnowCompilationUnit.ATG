@@ -79,6 +79,7 @@ PRODUCTIONS
 		= GenericTypeExpression<out node>
 		| InterfaceTypeExpression<out node>
 		| TupleTypeExpression<out node>
+		| TypeFunction<out node>
 		.
 
 	InterfaceTypeExpression<out SnowInterface node>
@@ -103,6 +104,12 @@ PRODUCTIONS
 		(. Token firstToken; BaseAstNode typeExpr = null; .)
 	= Identifier<out node> (. firstToken = t; .) [ '<' TypeExpression<out typeExpr> '>'
 		(. node = new Generic(toSnowToken(firstToken), toSnowToken(t), node, typeExpr); .) ]
+	.
+
+	TypeFunction<out BaseAstNode node>
+		(. Token firstToken; BaseAstNode argType = null; BaseAstNode returnType; .)
+	= "fun" (. firstToken = t; .) '(' [ TypeExpression<out argType> ] ')' ':' TypeExpression<out returnType>
+		(. node = new TypeFunction(toSnowToken(firstToken), toSnowToken(t), argType, returnType); .)
 	.
 
 	TupleTypeExpression<out BaseAstNode node>

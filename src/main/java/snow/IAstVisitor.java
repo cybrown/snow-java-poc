@@ -23,4 +23,5 @@ public interface IAstVisitor {
     void visit(SnowInterface node, boolean start);
     void visit(TypeTuple node, boolean start);
     void visit(ArrayType node, boolean start);
+    void visit(TypeFunction node, boolean start);
 }

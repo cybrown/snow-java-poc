@@ -1,0 +1,7 @@
+<SnowType>
+    <Identifier>MyDelegate</Identifier>
+    <TypeFunction>
+        <Identifier>int</Identifier>
+        <Identifier>string</Identifier>
+    </TypeFunction>
+</SnowType>

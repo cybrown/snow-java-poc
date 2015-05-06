@@ -1,0 +1,10 @@
+<SnowType>
+    <Identifier>ATuple</Identifier>
+    <TypeTuple>
+        <Identifier>int</Identifier>
+        <Identifier>string</Identifier>
+        <ArrayType>
+            <Identifier>string</Identifier>
+        </ArrayType>
+    </TypeTuple>
+</SnowType>

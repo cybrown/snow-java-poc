@@ -71,7 +71,7 @@ PRODUCTIONS
 
 	TypeExpression<out BaseAstNode node>
 			(. Token firstToken; .)
-		= NotArrayTypeExpression<out node> (. firstToken = t; .) {IF (_bracketOpen) '[' ']'
+		= NotArrayTypeExpression<out node> (. firstToken = t; .) {IF (la.kind == _bracketOpen) '[' ']'
 			(. node = new ArrayType(toSnowToken(firstToken), toSnowToken(t), node); .)}
 		.
 

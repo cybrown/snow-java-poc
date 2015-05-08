@@ -52,7 +52,6 @@ public class AstToIrVisitor implements IAstVisitor {
 
     @Override
     public void visit(LiteralInteger node, boolean start) {
-        System.out.println("ok");
         push(new IntegerNode(Integer.parseInt(node.getFirstToken().getVal())));
     }
 

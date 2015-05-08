@@ -2,11 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 import snow.parser.node.*;
 import snow.parser.util.*;
-import snow.parser.util.AstUtil;
 
 COMPILER SnowCompilationUnit
 	public BaseAstNode ast;
-	public AstUtil u;
 
 	public snow.parser.Token toSnowToken(Token t) {
 		return new snow.parser.Token(
@@ -62,7 +60,7 @@ PRODUCTIONS
 
 	Expression<out BaseAstNode node>
 			(. node = null; .)
-		= TupleValue<out node>
+		= LogicalOrValue<out node>
 		| If<out node>
 		| Definition<out node>
 		| SnowClass<out node>
@@ -234,17 +232,22 @@ PRODUCTIONS
 		.
 
 	AccessValue<out BaseAstNode node>
-			(. Token firstToken; String operator; BaseAstNode nextNode; BaseAstNode arg = null; BaseAstNode funcBody = null; .)
+			(. Token firstToken; Token firstFunctionToken; Token lastFunctionToken; String operator; BaseAstNode nextNode; List<BaseAstNode> args = new ArrayList<BaseAstNode>(); BaseAstNode funcBody = null; .)
 		= SubExpression<out node> (. firstToken = t; .) {
 				('.' (. operator = t.val; .) SubExpression<out nextNode>) (. node = new Binary(null, null, node, nextNode, operator); .)
 				| ('[' (. operator = t.val; .) SubExpression<out nextNode> ']') (. node = new Binary(null, null, node, nextNode, operator); .)
-				| '(' [ExpressionList<out arg>] ')' [ '{' ExpressionList<out funcBody> '}' ] (. node = new Call(toSnowToken(firstToken), toSnowToken(t), node, u.addToTuple(arg, funcBody)); .)
+				| '(' [ ArgumentList<out args> ] ')' [ '{' (. firstFunctionToken = t; .) ExpressionList<out funcBody> '}' (. lastFunctionToken = t; .) (. args.add(new Function(toSnowToken(firstFunctionToken), toSnowToken(lastFunctionToken), null, funcBody, null, null, null)); .) ] (. node = new Call(toSnowToken(firstToken), toSnowToken(t), node, args); .)
 			}
+		.
+
+	ArgumentList<out List<BaseAstNode> argList >
+			(. argList = new ArrayList<BaseAstNode>(); BaseAstNode expr; .)
+		= Expression<out expr> (. argList.add(expr); .) { ',' Expression<out expr> (. argList.add(expr); .) }
 		.
 
 	SubExpression<out BaseAstNode node>
 			(. node = null; .)
-		= '(' ExpressionList<out node> ')'
+		= '(' TupleValue<out node> ')'
 		| Literal<out node>
 		| Identifier<out node>
 		| AnonymousFunction<out node>
@@ -252,9 +255,9 @@ PRODUCTIONS
 		.
 
 	PrimitiveOperation<out BaseAstNode node>
-			(. Token firstToken; BaseAstNode body; Identifier operationIdentifier; .)
-		= '#' (. firstToken = t; .) Identifier<out operationIdentifier> '(' ExpressionList<out body> ')'
-			(. node = new PrimitiveOperation(toSnowToken(firstToken), toSnowToken(t), operationIdentifier, body); .)
+			(. Token firstToken; List<BaseAstNode> args = new ArrayList<BaseAstNode>(); Identifier operationIdentifier; .)
+		= '#' (. firstToken = t; .) Identifier<out operationIdentifier> '(' [ ArgumentList<out args> ] ')'
+			(. node = new PrimitiveOperation(toSnowToken(firstToken), toSnowToken(t), operationIdentifier, args); .)
 		.
 
 	AnonymousFunction<out Function node>

@@ -1,7 +1,7 @@
 <ExpressionList>
     <LiteralInteger>1</LiteralInteger>
-    <ExpressionList>
+    <Tuple>
         <LiteralInteger>2</LiteralInteger>
         <LiteralInteger>3</LiteralInteger>
-    </ExpressionList>
+    </Tuple>
 </ExpressionList>

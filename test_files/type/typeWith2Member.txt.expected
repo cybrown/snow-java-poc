@@ -1,15 +1,15 @@
 <SnowType>
     <Identifier>IFoo</Identifier>
-    <SnowInterface>
-        <InterfaceMember>
+    <TypeInterface>
+        <TypeInterfaceMember>
             <Identifier>doSmth</Identifier>
             <Argument>
                 <Identifier>value</Identifier>
                 <Identifier>int</Identifier>
             </Argument>
             <Identifier>int</Identifier>
-        </InterfaceMember>
-        <InterfaceMember>
+        </TypeInterfaceMember>
+        <TypeInterfaceMember>
             <Identifier>doSmthElse</Identifier>
             <Argument>
                 <Identifier>value</Identifier>
@@ -20,6 +20,6 @@
                 <Identifier>string</Identifier>
             </Argument>
             <Identifier>long</Identifier>
-        </InterfaceMember>
-    </SnowInterface>
+        </TypeInterfaceMember>
+    </TypeInterface>
 </SnowType>

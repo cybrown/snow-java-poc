@@ -1,11 +1,11 @@
 <Definition>
     <Identifier>a</Identifier>
-    <Generic>
+    <TypeGeneric>
         <Identifier>List</Identifier>
-        <Generic>
+        <TypeGeneric>
             <Identifier>List</Identifier>
             <Identifier>int</Identifier>
-        </Generic>
-    </Generic>
+        </TypeGeneric>
+    </TypeGeneric>
     <Identifier>aListFromSomewhere</Identifier>
 </Definition>

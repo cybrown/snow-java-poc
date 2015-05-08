@@ -83,15 +83,15 @@ public class XmlAstVisitor implements IAstVisitor {
 	}
 
 	@Override
-	public void visit(Generic node, boolean start) {
+	public void visit(TypeGeneric node, boolean start) {
 		if (start) {
 			this.printIndentation();
-			s.println("<Generic>");
+			s.println("<TypeGeneric>");
 			this.incIndentation();
 		} else {
 			this.decIndentation();
 			this.printIndentation();
-			s.println("</Generic>");
+			s.println("</TypeGeneric>");
 		}
 	}
 
@@ -187,15 +187,15 @@ public class XmlAstVisitor implements IAstVisitor {
 	}
 
 	@Override
-	public void visit(InterfaceMember node, boolean start) {
+	public void visit(TypeInterfaceMember node, boolean start) {
 		if (start) {
 			this.printIndentation();
-			s.println("<InterfaceMember>");
+			s.println("<TypeInterfaceMember>");
 			this.incIndentation();
 		} else {
 			this.decIndentation();
 			this.printIndentation();
-			s.println("</InterfaceMember>");
+			s.println("</TypeInterfaceMember>");
 		}
 	}
 
@@ -213,15 +213,15 @@ public class XmlAstVisitor implements IAstVisitor {
 	}
 
 	@Override
-	public void visit(SnowInterface node, boolean start) {
+	public void visit(TypeInterface node, boolean start) {
 		if (start) {
 			this.printIndentation();
-			s.println("<SnowInterface>");
+			s.println("<TypeInterface>");
 			this.incIndentation();
 		} else {
 			this.decIndentation();
 			this.printIndentation();
-			s.println("</SnowInterface>");
+			s.println("</TypeInterface>");
 		}
 	}
 
@@ -239,15 +239,15 @@ public class XmlAstVisitor implements IAstVisitor {
 	}
 
 	@Override
-	public void visit(ArrayType node, boolean start) {
+	public void visit(TypeArray node, boolean start) {
 		if (start) {
 			this.printIndentation();
-			s.println("<ArrayType>");
+			s.println("<TypeArray>");
 			this.incIndentation();
 		} else {
 			this.decIndentation();
 			this.printIndentation();
-			s.println("</ArrayType>");
+			s.println("</TypeArray>");
 		}
 	}
 

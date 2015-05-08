@@ -1,7 +1,7 @@
 <SnowType>
     <Identifier>ArrayOfInt</Identifier>
-    <Generic>
+    <TypeGeneric>
         <Identifier>Array</Identifier>
         <Identifier>int</Identifier>
-    </Generic>
+    </TypeGeneric>
 </SnowType>

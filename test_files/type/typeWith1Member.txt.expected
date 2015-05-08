@@ -1,13 +1,13 @@
 <SnowType>
     <Identifier>IFoo</Identifier>
-    <SnowInterface>
-        <InterfaceMember>
+    <TypeInterface>
+        <TypeInterfaceMember>
             <Identifier>doSmth</Identifier>
             <Argument>
                 <Identifier>value</Identifier>
                 <Identifier>int</Identifier>
             </Argument>
             <Identifier>int</Identifier>
-        </InterfaceMember>
-    </SnowInterface>
+        </TypeInterfaceMember>
+    </TypeInterface>
 </SnowType>

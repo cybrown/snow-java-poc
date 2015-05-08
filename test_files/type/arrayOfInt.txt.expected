@@ -1,7 +1,7 @@
 <Definition>
     <Identifier>a</Identifier>
-    <ArrayType>
+    <TypeArray>
         <Identifier>int</Identifier>
-    </ArrayType>
+    </TypeArray>
     <LiteralInteger>0</LiteralInteger>
 </Definition>

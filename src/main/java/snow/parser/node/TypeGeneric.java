@@ -9,12 +9,12 @@ import java.util.Optional;
 
 @Value
 @EqualsAndHashCode(callSuper = true)
-public class Generic extends BaseAstNode {
+public class TypeGeneric extends BaseAstNode {
 
     private final BaseAstNode callee;
     private final Optional<BaseAstNode> arg;
 
-    public Generic(Token firstToken, Token lastToken, BaseAstNode callee, BaseAstNode arg) {
+    public TypeGeneric(Token firstToken, Token lastToken, BaseAstNode callee, BaseAstNode arg) {
         super(firstToken, lastToken);
         this.callee = callee;
         this.arg = Optional.ofNullable(arg);

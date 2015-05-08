@@ -72,27 +72,27 @@ PRODUCTIONS
 	TypeExpression<out BaseAstNode node>
 			(. Token firstToken; .)
 		= NotArrayTypeExpression<out node> (. firstToken = t; .) {IF (la.kind == _bracketOpen) '[' ']'
-			(. node = new ArrayType(toSnowToken(firstToken), toSnowToken(t), node); .)}
+			(. node = new TypeArray(toSnowToken(firstToken), toSnowToken(t), node); .)}
 		.
 
 	NotArrayTypeExpression<out BaseAstNode node>
 			(. node = null; .)
-		= GenericTypeExpression<out node>
-		| InterfaceTypeExpression<out node>
-		| TupleTypeExpression<out node>
+		= TypeGeneric<out node>
+		| TypeInterface<out node>
+		| TypeTuple<out node>
 		| TypeFunction<out node>
 		.
 
-	InterfaceTypeExpression<out SnowInterface node>
-			(. Token firstToken; Identifier name; InterfaceMember currentMember; List<InterfaceMember> members = new ArrayList<>(); .)
-		= '{' (. firstToken = t; .) {InterfaceMember<out currentMember> (. members.add(currentMember); .) ';'} '}'
-			(. node = new SnowInterface(toSnowToken(firstToken), toSnowToken(t), members); .)
+	TypeInterface<out TypeInterface node>
+			(. Token firstToken; Identifier name; TypeInterfaceMember currentMember; List<TypeInterfaceMember> members = new ArrayList<>(); .)
+		= '{' (. firstToken = t; .) {TypeInterfaceMember<out currentMember> (. members.add(currentMember); .) ';'} '}'
+			(. node = new TypeInterface(toSnowToken(firstToken), toSnowToken(t), members); .)
 		.
 
-	InterfaceMember<out InterfaceMember node>
+	TypeInterfaceMember<out TypeInterfaceMember node>
 			(. Token firstToken; List<Argument> arguments = new ArrayList<>(); Argument currentArgument; Identifier identifier; BaseAstNode typeExpr; .)
 		= Identifier<out identifier> (. firstToken = t; .) [ '(' [Argument<out currentArgument> (. arguments.add(currentArgument); .) {',' Argument<out currentArgument> (. arguments.add(currentArgument); .)}] ')' ] ':' TypeExpression<out typeExpr>
-			(. node = new InterfaceMember(toSnowToken(firstToken), toSnowToken(t), identifier, arguments, typeExpr); .)
+			(. node = new TypeInterfaceMember(toSnowToken(firstToken), toSnowToken(t), identifier, arguments, typeExpr); .)
 		.
 
 	Argument<out Argument node>
@@ -101,10 +101,10 @@ PRODUCTIONS
 			(. node = new Argument(toSnowToken(firstToken), toSnowToken(t), identifier, typeExpr); .)
 		.
 
-	GenericTypeExpression<out BaseAstNode node>
+	TypeGeneric<out BaseAstNode node>
 		(. Token firstToken; BaseAstNode typeExpr = null; .)
 	= Identifier<out node> (. firstToken = t; .) [ '<' TypeExpression<out typeExpr> '>'
-		(. node = new Generic(toSnowToken(firstToken), toSnowToken(t), node, typeExpr); .) ]
+		(. node = new TypeGeneric(toSnowToken(firstToken), toSnowToken(t), node, typeExpr); .) ]
 	.
 
 	TypeFunction<out BaseAstNode node>
@@ -113,7 +113,7 @@ PRODUCTIONS
 		(. node = new TypeFunction(toSnowToken(firstToken), toSnowToken(t), argType, returnType); .)
 	.
 
-	TupleTypeExpression<out BaseAstNode node>
+	TypeTuple<out BaseAstNode node>
 		(. Token firstToken; BaseAstNode typeExpr = null; List<BaseAstNode> types = new ArrayList<>(); BaseAstNode currentTypeExpr = null; .)
 	= '(' (. firstToken = t; .) TypeExpression<out currentTypeExpr> (. types.add(currentTypeExpr); .) {',' TypeExpression<out currentTypeExpr> (. types.add(currentTypeExpr); .) } ')'
 		(. node = new TypeTuple(toSnowToken(firstToken), toSnowToken(t), types); .)

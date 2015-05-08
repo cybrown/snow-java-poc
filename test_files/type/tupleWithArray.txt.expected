@@ -3,8 +3,8 @@
     <TypeTuple>
         <Identifier>int</Identifier>
         <Identifier>string</Identifier>
-        <ArrayType>
+        <TypeArray>
             <Identifier>string</Identifier>
-        </ArrayType>
+        </TypeArray>
     </TypeTuple>
 </SnowType>

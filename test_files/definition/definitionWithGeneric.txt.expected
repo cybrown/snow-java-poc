@@ -1,8 +1,8 @@
 <Definition>
     <Identifier>a</Identifier>
-    <Generic>
+    <TypeGeneric>
         <Identifier>List</Identifier>
         <Identifier>int</Identifier>
-    </Generic>
+    </TypeGeneric>
     <Identifier>aListFromSomewhere</Identifier>
 </Definition>

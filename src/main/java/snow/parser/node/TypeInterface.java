@@ -9,11 +9,11 @@ import java.util.List;
 
 @Value
 @EqualsAndHashCode(callSuper = true)
-public class SnowInterface extends BaseAstNode {
+public class TypeInterface extends BaseAstNode {
 
-    private final List<InterfaceMember> members;
+    private final List<TypeInterfaceMember> members;
 
-    public SnowInterface(Token firstToken, Token lastToken, List<InterfaceMember> members) {
+    public TypeInterface(Token firstToken, Token lastToken, List<TypeInterfaceMember> members) {
         super(firstToken, lastToken);
         this.members = members;
     }

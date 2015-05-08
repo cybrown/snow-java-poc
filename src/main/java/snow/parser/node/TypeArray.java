@@ -7,11 +7,11 @@ import snow.parser.Token;
 
 @Value
 @EqualsAndHashCode(callSuper = true)
-public class ArrayType extends BaseAstNode {
+public class TypeArray extends BaseAstNode {
 
     private final BaseAstNode type;
 
-    public ArrayType(Token firstToken, Token lastToken, BaseAstNode type) {
+    public TypeArray(Token firstToken, Token lastToken, BaseAstNode type) {
         super(firstToken, lastToken);
         this.type = type;
     }

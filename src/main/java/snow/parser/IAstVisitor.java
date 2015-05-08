@@ -10,7 +10,7 @@ public interface IAstVisitor {
     void visit(Identifier node, boolean start);
     void visit(Definition definition, boolean start);
     void visit(Call call, boolean start);
-    void visit(Generic call, boolean start);
+    void visit(TypeGeneric call, boolean start);
     void visit(If node, boolean start);
     void visit(ExpressionList node, boolean start);
     void visit(SnowClass node, boolean start);
@@ -18,10 +18,10 @@ public interface IAstVisitor {
     void visit(Unary unary, boolean start);
     void visit(PrimitiveOperation node, boolean start);
     void visit(SnowType node, boolean start);
-    void visit(InterfaceMember node, boolean start);
+    void visit(TypeInterfaceMember node, boolean start);
     void visit(Argument node, boolean start);
-    void visit(SnowInterface node, boolean start);
+    void visit(TypeInterface node, boolean start);
     void visit(TypeTuple node, boolean start);
-    void visit(ArrayType node, boolean start);
+    void visit(TypeArray node, boolean start);
     void visit(TypeFunction node, boolean start);
 }

@@ -1,15 +1,15 @@
 import java.util.ArrayList;
 import java.util.List;
-import snow.ast.node.*;
-import snow.util.*;
-import snow.util.AstUtil;
+import snow.parser.node.*;
+import snow.parser.util.*;
+import snow.parser.util.AstUtil;
 
 COMPILER SnowCompilationUnit
 	public BaseAstNode ast;
 	public AstUtil u;
 
-	public snow.ast.Token toSnowToken(Token t) {
-		return new snow.ast.Token(
+	public snow.parser.Token toSnowToken(Token t) {
+		return new snow.parser.Token(
 			t.pos,
 			t.charPos,
 			t.col,

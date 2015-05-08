@@ -1,8 +1,8 @@
 package snow;
 
-import gen.Parser;
-import gen.Scanner;
-import snow.util.AstUtil;
+import snow.parser.gen.Parser;
+import snow.parser.gen.Scanner;
+import snow.parser.util.AstUtil;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -1,20 +1,20 @@
-package snow.ast.node;
+package snow.parser.node;
 
 import lombok.EqualsAndHashCode;
 import lombok.Value;
-import snow.IAstVisitor;
-import snow.ast.Token;
+import snow.parser.IAstVisitor;
+import snow.parser.Token;
 
 import java.util.Optional;
 
 @Value
 @EqualsAndHashCode(callSuper = true)
-public class Call extends BaseAstNode {
+public class Generic extends BaseAstNode {
 
     private final BaseAstNode callee;
     private final Optional<BaseAstNode> arg;
 
-    public Call(Token firstToken, Token lastToken, BaseAstNode callee, BaseAstNode arg) {
+    public Generic(Token firstToken, Token lastToken, BaseAstNode callee, BaseAstNode arg) {
         super(firstToken, lastToken);
         this.callee = callee;
         this.arg = Optional.ofNullable(arg);

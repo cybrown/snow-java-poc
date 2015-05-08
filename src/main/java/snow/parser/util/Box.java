@@ -1,4 +1,4 @@
-package snow.util;
+package snow.parser.util;
 
 import lombok.Data;
 

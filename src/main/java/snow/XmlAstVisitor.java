@@ -1,6 +1,7 @@
 package snow;
 
-import snow.ast.node.*;
+import snow.parser.IAstVisitor;
+import snow.parser.node.*;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;

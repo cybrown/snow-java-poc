@@ -1,8 +1,8 @@
-package snow.util;
+package snow.parser.util;
 
 import lombok.EqualsAndHashCode;
 import lombok.Value;
-import snow.ast.Token;
+import snow.parser.Token;
 
 @Value
 @EqualsAndHashCode

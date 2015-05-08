@@ -1,11 +1,9 @@
-package snow.ast.node;
+package snow.parser.node;
 
 import lombok.EqualsAndHashCode;
 import lombok.Value;
-import snow.IAstVisitor;
-import snow.ast.Token;
-
-import java.util.Optional;
+import snow.parser.IAstVisitor;
+import snow.parser.Token;
 
 @Value
 @EqualsAndHashCode(callSuper = true)

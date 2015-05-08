@@ -1,8 +1,8 @@
-package snow.ast.node;
+package snow.parser.node;
 
 import lombok.Getter;
-import snow.IAstVisitor;
-import snow.ast.Token;
+import snow.parser.IAstVisitor;
+import snow.parser.Token;
 
 abstract public class BaseAstNode {
 

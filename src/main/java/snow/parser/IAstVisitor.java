@@ -1,6 +1,6 @@
-package snow;
+package snow.parser;
 
-import snow.ast.node.*;
+import snow.parser.node.*;
 
 public interface IAstVisitor {
     void visit(LiteralInteger node, boolean start);

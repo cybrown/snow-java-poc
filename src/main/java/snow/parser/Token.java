@@ -1,4 +1,4 @@
-package snow.ast;
+package snow.parser;
 
 import lombok.Value;
 

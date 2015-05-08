@@ -1,9 +1,9 @@
-package snow.ast.node;
+package snow.parser.node;
 
 import lombok.EqualsAndHashCode;
 import lombok.Value;
-import snow.IAstVisitor;
-import snow.ast.Token;
+import snow.parser.IAstVisitor;
+import snow.parser.Token;
 
 import java.util.List;
 import java.util.ArrayList;

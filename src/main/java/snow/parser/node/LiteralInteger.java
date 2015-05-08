@@ -1,19 +1,18 @@
-package snow.ast.node;
+package snow.parser.node;
 
 import lombok.EqualsAndHashCode;
 import lombok.Value;
-import snow.IAstVisitor;
-import snow.ast.Token;
+import snow.parser.IAstVisitor;
+import snow.parser.Token;
 
 @Value
 @EqualsAndHashCode(callSuper = true)
-public class Identifier extends BaseAstNode {
+public class LiteralInteger extends BaseAstNode {
 
-    public Identifier(Token token) {
+    public LiteralInteger(Token token) {
         super(token, token);
     }
 
-    @Override
     public void accept(IAstVisitor visitor) {
         visitor.visit(this, true);
     }

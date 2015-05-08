@@ -1,7 +1,7 @@
-package snow.ast.node;
+package snow.parser.node;
 
-import snow.IAstVisitor;
-import snow.ast.Token;
+import snow.parser.IAstVisitor;
+import snow.parser.Token;
 
 public class ExpressionList extends BaseAstNode {
 

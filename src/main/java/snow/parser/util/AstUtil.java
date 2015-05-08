@@ -1,8 +1,8 @@
-package snow.util;
+package snow.parser.util;
 
-import snow.ast.node.BaseAstNode;
-import snow.ast.node.Function;
-import snow.ast.node.Tuple;
+import snow.parser.node.BaseAstNode;
+import snow.parser.node.Function;
+import snow.parser.node.Tuple;
 
 import java.util.ArrayList;
 import java.util.List;

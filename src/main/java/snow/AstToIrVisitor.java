@@ -1,10 +1,7 @@
 package snow;
 
 import snow.ir.Operation;
-import snow.ir.node.BaseIrNode;
-import snow.ir.node.FunctionNode;
-import snow.ir.node.IntegerNode;
-import snow.ir.node.OperationNode;
+import snow.ir.node.*;
 import snow.parser.IAstVisitor;
 import snow.parser.node.*;
 
@@ -77,7 +74,7 @@ public class AstToIrVisitor implements IAstVisitor {
 
     @Override
     public void visit(Identifier node, boolean start) {
-
+        push(new IdentifierNode(node.getFirstToken().getVal()));
     }
 
     @Override
@@ -125,7 +122,9 @@ public class AstToIrVisitor implements IAstVisitor {
         if (start) {
             this.pushEmptyStack();
         } else {
-            push(new OperationNode(Operation.IADD, popCurrentStack()));
+            OperationNode operationNode = new OperationNode(Operation.IADD, currentStack.subList(1, currentStack.size()));
+            popCurrentStack();
+            push(operationNode);
         }
     }
 

@@ -3,6 +3,7 @@ package snow;
 import org.junit.Before;
 import org.junit.Test;
 import snow.ir.Operation;
+import snow.ir.node.IdentifierNode;
 import snow.ir.node.IntegerNode;
 import snow.ir.node.OperationNode;
 import snow.parser.Token;
@@ -43,5 +44,12 @@ public class AstToIrVisitorTest {
         assertEquals(visitor.<OperationNode>getLastValue().getOperator(), Operation.IADD);
         assertEquals(((IntegerNode) visitor.<OperationNode>getLastValue().getExpressions().get(0)).getValue(), 23);
         assertEquals(((IntegerNode) visitor.<OperationNode>getLastValue().getExpressions().get(1)).getValue(), 27);
+    }
+
+    @Test
+    public void convertIdentifier() {
+        snow.parser.node.Identifier ast = new snow.parser.node.Identifier(new Token(0, 0, 0, 0, "foo"));
+        ast.accept(visitor);
+        assertTrue(visitor.getLastValue() instanceof IdentifierNode);
     }
 }

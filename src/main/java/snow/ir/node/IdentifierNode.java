@@ -5,15 +5,13 @@ import lombok.Value;
 import snow.ir.IIrVisitor;
 
 @Value
-@EqualsAndHashCode(callSuper=true)
-public class FunctionNode extends BaseIrNode {
+@EqualsAndHashCode(callSuper = true)
+public class IdentifierNode extends BaseIrNode {
 
-
-    private BaseIrNode expression;
+    private String name;
 
     @Override
     public void accept(IIrVisitor visitor) {
         visitor.visit(this, true);
-        visitor.visit(this, false);
     }
 }

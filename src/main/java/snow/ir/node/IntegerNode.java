@@ -12,6 +12,6 @@ public class IntegerNode extends BaseIrNode {
 
     @Override
     public void accept(IIrVisitor visitor) {
-        visitor.accept(this, true);
+        visitor.visit(this, true);
     }
 }

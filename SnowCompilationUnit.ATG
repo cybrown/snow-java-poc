@@ -106,10 +106,21 @@ PRODUCTIONS
 		.
 
 	TypeFunction<out BaseAstNode node>
-		(. Token firstToken; BaseAstNode argType = null; BaseAstNode returnType; .)
-	= "fun" (. firstToken = t; .) '(' [ TypeExpression<out argType> ] ')' ':' TypeExpression<out returnType>
-		(. node = new TypeFunction(toSnowToken(firstToken), toSnowToken(t), argType, returnType); .)
-	.
+			(. Token firstToken; BaseAstNode argType = null; BaseAstNode returnType; List<Pair<Identifier, BaseAstNode>> args = new ArrayList<>(); .)
+		= "fun" (. firstToken = t; .) '(' [ TypeFunctionParameterList<out args> ] ')' ':' TypeExpression<out returnType>
+			(. node = new TypeFunction(toSnowToken(firstToken), toSnowToken(t), args, returnType); .)
+		.
+
+	TypeFunctionParameterList<out List<Pair<Identifier, BaseAstNode>> node>
+			(. Pair<Identifier, BaseAstNode> argDescription; node = new ArrayList<>(); .)
+		= TypeFunctionParameter<out argDescription> (. node.add(argDescription); .) { ',' TypeFunctionParameter<out argDescription> (. node.add(argDescription); .) }
+		.
+
+	TypeFunctionParameter<out Pair<Identifier, BaseAstNode> identifierAndType>
+			(. Identifier identifier; BaseAstNode type = null; .)
+		= Identifier<out identifier> [ ':' TypeExpression<out type> ]
+			(. identifierAndType = new Pair<Identifier, BaseAstNode>(identifier, type); .)
+		.
 
 	TypeTuple<out BaseAstNode node>
 			(. Token firstToken; BaseAstNode typeExpr = null; List<BaseAstNode> types = new ArrayList<>(); BaseAstNode currentTypeExpr = null; .)

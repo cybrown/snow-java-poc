@@ -24,4 +24,6 @@ public interface IAstVisitor {
     void visit(TypeTuple node, boolean start);
     void visit(TypeArray node, boolean start);
     void visit(TypeFunction node, boolean start);
+    void visit(TypeFunctionParameterList node, boolean start);
+    void visit(TypeFunctionParameter node, boolean start);
 }

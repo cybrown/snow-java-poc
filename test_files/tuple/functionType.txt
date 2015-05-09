@@ -1,1 +1,1 @@
-type MyDelegate fun (int): string
+type MyDelegate fun (num: int): string

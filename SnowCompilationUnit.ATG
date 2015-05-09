@@ -106,20 +106,21 @@ PRODUCTIONS
 		.
 
 	TypeFunction<out BaseAstNode node>
-			(. Token firstToken; BaseAstNode argType = null; BaseAstNode returnType; List<Pair<Identifier, BaseAstNode>> args = new ArrayList<>(); .)
-		= "fun" (. firstToken = t; .) '(' [ TypeFunctionParameterList<out args> ] ')' ':' TypeExpression<out returnType>
-			(. node = new TypeFunction(toSnowToken(firstToken), toSnowToken(t), args, returnType); .)
+			(. Token firstToken; BaseAstNode argType = null; BaseAstNode returnType; TypeFunctionParameterList parameters = null; .)
+		= "fun" (. firstToken = t; .) '(' [ TypeFunctionParameterList<out parameters> ] ')' ':' TypeExpression<out returnType>
+			(. node = new TypeFunction(toSnowToken(firstToken), toSnowToken(t), parameters, returnType); .)
 		.
 
-	TypeFunctionParameterList<out List<Pair<Identifier, BaseAstNode>> node>
-			(. Pair<Identifier, BaseAstNode> argDescription; node = new ArrayList<>(); .)
-		= TypeFunctionParameter<out argDescription> (. node.add(argDescription); .) { ',' TypeFunctionParameter<out argDescription> (. node.add(argDescription); .) }
+	TypeFunctionParameterList<out TypeFunctionParameterList node>
+			(. TypeFunctionParameter parameter; List<TypeFunctionParameter> parameters = new ArrayList<>(); Token firstToken = la; .)
+		= TypeFunctionParameter<out parameter> (. parameters.add(parameter); .) { ',' TypeFunctionParameter<out parameter> (. parameters.add(parameter); .) }
+			(. node = new TypeFunctionParameterList(toSnowToken(firstToken), toSnowToken(t), parameters); .)
 		.
 
-	TypeFunctionParameter<out Pair<Identifier, BaseAstNode> identifierAndType>
-			(. Identifier identifier; BaseAstNode type = null; .)
+	TypeFunctionParameter<out TypeFunctionParameter identifierAndType>
+			(. Identifier identifier; BaseAstNode type = null; Token firstToken = la; .)
 		= Identifier<out identifier> [ ':' TypeExpression<out type> ]
-			(. identifierAndType = new Pair<Identifier, BaseAstNode>(identifier, type); .)
+			(. identifierAndType = new TypeFunctionParameter(toSnowToken(firstToken), toSnowToken(t), identifier, type); .)
 		.
 
 	TypeTuple<out BaseAstNode node>

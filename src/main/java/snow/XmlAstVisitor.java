@@ -264,6 +264,32 @@ public class XmlAstVisitor implements IAstVisitor {
 		}
 	}
 
+	@Override
+	public void visit(TypeFunctionParameterList node, boolean start) {
+		if (start) {
+			this.printIndentation();
+			s.println("<TypeFunctionParameterList>");
+			this.incIndentation();
+		} else {
+			this.decIndentation();
+			this.printIndentation();
+			s.println("</TypeFunctionParameterList>");
+		}
+	}
+
+	@Override
+	public void visit(TypeFunctionParameter node, boolean start) {
+		if (start) {
+			this.printIndentation();
+			s.println("<TypeFunctionParameter>");
+			this.incIndentation();
+		} else {
+			this.decIndentation();
+			this.printIndentation();
+			s.println("</TypeFunctionParameter>");
+		}
+	}
+
 	private PrintStream s;
 
 	public XmlAstVisitor(String fileName) throws FileNotFoundException {

@@ -1,7 +1,12 @@
 <SnowType>
     <Identifier>MyDelegate</Identifier>
     <TypeFunction>
-        <Identifier>int</Identifier>
+        <TypeFunctionParameterList>
+            <TypeFunctionParameter>
+                <Identifier>num</Identifier>
+                <Identifier>int</Identifier>
+            </TypeFunctionParameter>
+        </TypeFunctionParameterList>
         <Identifier>string</Identifier>
     </TypeFunction>
 </SnowType>

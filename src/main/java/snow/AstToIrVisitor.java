@@ -172,4 +172,9 @@ public class AstToIrVisitor implements IAstVisitor {
     public void visit(TypeFunctionParameter node, boolean start) {
 
     }
+
+    @Override
+    public void visit(ArgumentList node, boolean start) {
+
+    }
 }

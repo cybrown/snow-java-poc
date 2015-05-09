@@ -244,17 +244,18 @@ PRODUCTIONS
 		.
 
 	AccessValue<out BaseAstNode node>
-			(. Token firstToken; Token firstFunctionToken; Token lastFunctionToken; String operator; BaseAstNode nextNode; List<BaseAstNode> args = new ArrayList<BaseAstNode>(); BaseAstNode funcBody = null; .)
+			(. Token firstToken; Token firstFunctionToken; Token lastFunctionToken; String operator; BaseAstNode nextNode; ArgumentList arguments = null; BaseAstNode funcBody = null; .)
 		= SubExpression<out node> (. firstToken = t; .) {
 				('.' (. operator = t.val; .) SubExpression<out nextNode>) (. node = new Binary(null, null, node, nextNode, operator); .)
 				| ('[' (. operator = t.val; .) SubExpression<out nextNode> ']') (. node = new Binary(null, null, node, nextNode, operator); .)
-				| '(' [ ArgumentList<out args> ] ')' [ '{' (. firstFunctionToken = t; .) ExpressionList<out funcBody> '}' (. lastFunctionToken = t; .) (. args.add(new Function(toSnowToken(firstFunctionToken), toSnowToken(lastFunctionToken), null, funcBody, null, null, null)); .) ] (. node = new Call(toSnowToken(firstToken), toSnowToken(t), node, args); .)
+				| '(' [ ArgumentList<out arguments> ] ')' [ '{' (. firstFunctionToken = t; .) ExpressionList<out funcBody> '}' (. lastFunctionToken = t; .) (. arguments = arguments.add(new Function(toSnowToken(firstFunctionToken), toSnowToken(lastFunctionToken), null, funcBody, null, null, null)); .) ] (. node = new Call(toSnowToken(firstToken), toSnowToken(t), node, arguments); .)
 			}
 		.
 
-	ArgumentList<out List<BaseAstNode> argList >
-			(. argList = new ArrayList<BaseAstNode>(); BaseAstNode expr; .)
-		= Expression<out expr> (. argList.add(expr); .) { ',' Expression<out expr> (. argList.add(expr); .) }
+	ArgumentList<out ArgumentList argumentList >
+			(. List<BaseAstNode> arguments = new ArrayList<>(); BaseAstNode expr; Token firstToken = la; .)
+		= Expression<out expr> (. arguments.add(expr); .) { ',' Expression<out expr> (. arguments.add(expr); .) }
+			(. argumentList = new ArgumentList(toSnowToken(firstToken), toSnowToken(t), arguments); .)
 		.
 
 	SubExpression<out BaseAstNode node>
@@ -267,9 +268,9 @@ PRODUCTIONS
 		.
 
 	PrimitiveOperation<out BaseAstNode node>
-			(. Token firstToken; List<BaseAstNode> args = new ArrayList<BaseAstNode>(); Identifier operationIdentifier; .)
-		= '#' (. firstToken = t; .) Identifier<out operationIdentifier> '(' [ ArgumentList<out args> ] ')'
-			(. node = new PrimitiveOperation(toSnowToken(firstToken), toSnowToken(t), operationIdentifier, args); .)
+			(. Token firstToken; ArgumentList argumentList = new ArrayList<BaseAstNode>(); Identifier operationIdentifier; .)
+		= '#' (. firstToken = t; .) Identifier<out operationIdentifier> '(' [ ArgumentList<out argumentList> ] ')'
+			(. node = new PrimitiveOperation(toSnowToken(firstToken), toSnowToken(t), operationIdentifier, argumentList); .)
 		.
 
 	AnonymousFunction<out Function node>

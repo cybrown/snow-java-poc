@@ -26,4 +26,5 @@ public interface IAstVisitor {
     void visit(TypeFunction node, boolean start);
     void visit(TypeFunctionParameterList node, boolean start);
     void visit(TypeFunctionParameter node, boolean start);
+    void visit(ArgumentList node, boolean start);
 }

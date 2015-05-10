@@ -5,27 +5,26 @@ import lombok.Value;
 import snow.parser.IAstVisitor;
 import snow.parser.Token;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.Optional;
 
 @Value
 @EqualsAndHashCode(callSuper = true)
 public class Call extends BaseAstNode {
 
     private final BaseAstNode callee;
-    private final List<BaseAstNode> arg;
+    private final Optional<ArgumentList> arguments;
 
-    public Call(Token firstToken, Token lastToken, BaseAstNode callee, List<BaseAstNode> arg) {
+    public Call(Token firstToken, Token lastToken, BaseAstNode callee, ArgumentList arguments) {
         super(firstToken, lastToken);
         this.callee = callee;
-        this.arg = arg == null ? Collections.emptyList() : arg;
+        this.arguments = Optional.ofNullable(arguments);
     }
 
     @Override
     public void accept(IAstVisitor visitor) {
         visitor.visit(this, true);
         this.callee.accept(visitor);
-        this.arg.forEach(a -> a.accept(visitor));
+        this.arguments.ifPresent(a -> a.accept(visitor));
         visitor.visit(this, false);
     }
 }

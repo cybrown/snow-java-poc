@@ -1,10 +1,12 @@
 <Call>
     <Identifier>foo</Identifier>
-    <LiteralInteger>3</LiteralInteger>
-    <Function>
-        <Binary operator="+">
-            <LiteralInteger>1</LiteralInteger>
-            <LiteralInteger>1</LiteralInteger>
-        </Binary>
-    </Function>
+    <ArgumentList>
+        <LiteralInteger>3</LiteralInteger>
+        <Function>
+            <Binary operator="+">
+                <LiteralInteger>1</LiteralInteger>
+                <LiteralInteger>1</LiteralInteger>
+            </Binary>
+        </Function>
+    </ArgumentList>
 </Call>

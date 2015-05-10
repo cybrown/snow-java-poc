@@ -1,10 +1,14 @@
 <Call>
     <Identifier>foo</Identifier>
-    <Call>
-        <Identifier>bar</Identifier>
-        <Binary operator="+">
-            <LiteralInteger>1</LiteralInteger>
-            <LiteralInteger>2</LiteralInteger>
-        </Binary>
-    </Call>
+    <ArgumentList>
+        <Call>
+            <Identifier>bar</Identifier>
+            <ArgumentList>
+                <Binary operator="+">
+                    <LiteralInteger>1</LiteralInteger>
+                    <LiteralInteger>2</LiteralInteger>
+                </Binary>
+            </ArgumentList>
+        </Call>
+    </ArgumentList>
 </Call>

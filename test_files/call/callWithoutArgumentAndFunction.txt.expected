@@ -1,9 +1,11 @@
 <Call>
     <Identifier>foo</Identifier>
-    <Function>
-        <Binary operator="+">
-            <LiteralInteger>1</LiteralInteger>
-            <LiteralInteger>1</LiteralInteger>
-        </Binary>
-    </Function>
+    <ArgumentList>
+        <Function>
+            <Binary operator="+">
+                <LiteralInteger>1</LiteralInteger>
+                <LiteralInteger>1</LiteralInteger>
+            </Binary>
+        </Function>
+    </ArgumentList>
 </Call>

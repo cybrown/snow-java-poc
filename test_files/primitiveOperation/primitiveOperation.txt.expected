@@ -1,5 +1,7 @@
 <PrimitiveOperation>
     <Identifier>add</Identifier>
-    <Identifier>a</Identifier>
-    <LiteralInteger>1</LiteralInteger>
+    <ArgumentList>
+        <Identifier>a</Identifier>
+        <LiteralInteger>1</LiteralInteger>
+    </ArgumentList>
 </PrimitiveOperation>

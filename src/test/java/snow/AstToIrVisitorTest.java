@@ -7,6 +7,7 @@ import snow.ir.node.IdentifierNode;
 import snow.ir.node.IntegerNode;
 import snow.ir.node.OperationNode;
 import snow.parser.Token;
+import snow.parser.node.ArgumentList;
 import snow.parser.node.Identifier;
 import snow.parser.node.LiteralInteger;
 import snow.parser.node.PrimitiveOperation;
@@ -35,10 +36,10 @@ public class AstToIrVisitorTest {
 
     @Test
     public void convertPrimitiveOperation() {
-        PrimitiveOperation ast = new PrimitiveOperation(null, null, new Identifier(new Token(0, 0, 0, 0, "IADD")), Arrays.asList(
+        PrimitiveOperation ast = new PrimitiveOperation(null, null, new Identifier(new Token(0, 0, 0, 0, "IADD")), new ArgumentList(null, null, Arrays.asList(
                 new LiteralInteger(new Token(0, 0, 0, 0, "23")),
                 new LiteralInteger(new Token(0, 0, 0, 0, "27"))
-        ));
+        )));
         ast.accept(visitor);
         assertTrue(visitor.getLastValue() instanceof OperationNode);
         assertEquals(visitor.<OperationNode>getLastValue().getOperator(), Operation.IADD);

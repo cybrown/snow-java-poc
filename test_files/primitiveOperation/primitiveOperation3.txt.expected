@@ -1,4 +1,6 @@
 <PrimitiveOperation>
     <Identifier>neg</Identifier>
-    <LiteralInteger>3</LiteralInteger>
+    <ArgumentList>
+        <LiteralInteger>3</LiteralInteger>
+    </ArgumentList>
 </PrimitiveOperation>

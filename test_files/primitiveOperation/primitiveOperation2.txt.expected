@@ -1,9 +1,13 @@
 <PrimitiveOperation>
     <Identifier>add</Identifier>
-    <Identifier>a</Identifier>
-    <PrimitiveOperation>
-        <Identifier>mul</Identifier>
-        <LiteralInteger>4</LiteralInteger>
-        <Identifier>e</Identifier>
-    </PrimitiveOperation>
+    <ArgumentList>
+        <Identifier>a</Identifier>
+        <PrimitiveOperation>
+            <Identifier>mul</Identifier>
+            <ArgumentList>
+                <LiteralInteger>4</LiteralInteger>
+                <Identifier>e</Identifier>
+            </ArgumentList>
+        </PrimitiveOperation>
+    </ArgumentList>
 </PrimitiveOperation>

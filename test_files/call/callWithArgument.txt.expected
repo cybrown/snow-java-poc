@@ -1,4 +1,6 @@
 <Call>
     <Identifier>foo</Identifier>
-    <LiteralInteger>3</LiteralInteger>
+    <ArgumentList>
+        <LiteralInteger>3</LiteralInteger>
+    </ArgumentList>
 </Call>

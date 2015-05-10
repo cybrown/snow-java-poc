@@ -42,8 +42,8 @@ public class AstToIrVisitor implements IAstVisitor {
     }
 
     private void assertCurrentStackLength(int length) {
-        if (this.currentStack.size() != length) {
-            throw new RuntimeException("Current stack size should have been 0");
+        if (currentStack.size() != length) {
+            throw new RuntimeException("Current stack size should have been " + length + ", got " + currentStack.size());
         }
     }
 
@@ -122,7 +122,8 @@ public class AstToIrVisitor implements IAstVisitor {
         if (start) {
             this.pushEmptyStack();
         } else {
-            OperationNode operationNode = new OperationNode(Operation.IADD, currentStack.subList(1, currentStack.size()));
+            assertCurrentStackLength(2);
+            OperationNode operationNode = new OperationNode(Operation.IADD, currentStack.get(1));
             popCurrentStack();
             push(operationNode);
         }
@@ -175,6 +176,10 @@ public class AstToIrVisitor implements IAstVisitor {
 
     @Override
     public void visit(ArgumentList node, boolean start) {
-
+        if (start) {
+            this.pushEmptyStack();
+        } else {
+            push(new IrNodeList(this.popCurrentStack()));
+        }
     }
 }

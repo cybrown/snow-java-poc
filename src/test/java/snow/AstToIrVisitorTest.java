@@ -12,7 +12,9 @@ import snow.parser.node.Identifier;
 import snow.parser.node.LiteralInteger;
 import snow.parser.node.PrimitiveOperation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -20,6 +22,14 @@ import static org.junit.Assert.assertTrue;
 public class AstToIrVisitorTest {
 
     AstToIrVisitor visitor;
+
+    static <T> List<T> iterableToList(Iterable<T> iterable) {
+        List<T> list = new ArrayList<T>();
+        for (T t : iterable) {
+            list.add(t);
+        }
+        return list;
+    }
 
     @Before
     public void beforeEach() {
@@ -43,8 +53,9 @@ public class AstToIrVisitorTest {
         ast.accept(visitor);
         assertTrue(visitor.getLastValue() instanceof OperationNode);
         assertEquals(visitor.<OperationNode>getLastValue().getOperator(), Operation.IADD);
-        assertEquals(((IntegerNode) visitor.<OperationNode>getLastValue().getExpressions().get(0)).getValue(), 23);
-        assertEquals(((IntegerNode) visitor.<OperationNode>getLastValue().getExpressions().get(1)).getValue(), 27);
+        List baseIrNodes = iterableToList(((OperationNode) visitor.getLastValue()).getExpressions());
+        assertEquals(((IntegerNode) baseIrNodes.get(0)).getValue(), 23);
+        assertEquals(((IntegerNode) baseIrNodes.get(1)).getValue(), 27);
     }
 
     @Test

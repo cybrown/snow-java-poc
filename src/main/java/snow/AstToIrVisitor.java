@@ -49,7 +49,7 @@ public class AstToIrVisitor implements IAstVisitor {
 
     @Override
     public void visit(LiteralInteger node, boolean start) {
-        push(new IntegerNode(Integer.parseInt(node.getFirstToken().getVal())));
+        push(new IntegerNode(node, Integer.parseInt(node.getFirstToken().getVal())));
     }
 
     @Override
@@ -68,13 +68,13 @@ public class AstToIrVisitor implements IAstVisitor {
             pushEmptyStack();
         } else {
             assertCurrentStackLength(1);
-            currentStack.add(new FunctionNode(popCurrentStack().get(0)));
+            currentStack.add(new FunctionNode(node, popCurrentStack().get(0)));
         }
     }
 
     @Override
     public void visit(Identifier node, boolean start) {
-        push(new IdentifierNode(node.getFirstToken().getVal()));
+        push(new IdentifierNode(node, node.getFirstToken().getVal()));
     }
 
     @Override
@@ -123,7 +123,7 @@ public class AstToIrVisitor implements IAstVisitor {
             this.pushEmptyStack();
         } else {
             assertCurrentStackLength(2);
-            OperationNode operationNode = new OperationNode(Operation.IADD, currentStack.get(1));
+            OperationNode operationNode = new OperationNode(node, Operation.IADD, currentStack.get(1));
             popCurrentStack();
             push(operationNode);
         }
@@ -179,7 +179,7 @@ public class AstToIrVisitor implements IAstVisitor {
         if (start) {
             this.pushEmptyStack();
         } else {
-            push(new IrNodeList(this.popCurrentStack()));
+            push(new IrNodeList(node, this.popCurrentStack()));
         }
     }
 }

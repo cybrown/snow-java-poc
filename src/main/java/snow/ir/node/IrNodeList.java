@@ -3,6 +3,7 @@ package snow.ir.node;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 import snow.ir.IIrVisitor;
+import snow.parser.node.BaseAstNode;
 
 import java.util.Iterator;
 
@@ -12,7 +13,8 @@ public class IrNodeList extends BaseIrNode {
 
     private Iterable<BaseIrNode> nodes;
 
-    public IrNodeList(Iterable<BaseIrNode> nodes) {
+    public IrNodeList(BaseAstNode ast, Iterable<BaseIrNode> nodes) {
+        super(ast);
         this.nodes = nodes;
     }
 
